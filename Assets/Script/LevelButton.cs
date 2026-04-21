@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelButton : MonoBehaviour
 {
@@ -17,31 +18,22 @@ public class LevelButton : MonoBehaviour
     public GameObject levelLocked;   // Level1 (yang ada lock)
 
     void Start()
-    {
-        UpdateDisplay();
-    }
+{
+    Debug.Log("Level " + levelIndex + " | IsUnlocked: " + IsLevelUnlocked());
+    UpdateDisplay();
+}
 
-    public void UpdateDisplay()
-    {
-        int stars = LevelProgressManager.GetStars(levelIndex);
-        bool isUnlocked = IsLevelUnlocked();
+public void UpdateDisplay()
+{
+    int stars = LevelProgressManager.GetStars(levelIndex);
+    bool isUnlocked = IsLevelUnlocked();
 
-        // Toggle panel unlocked/locked
-        levelUnlocked.SetActive(isUnlocked);
-        levelLocked.SetActive(!isUnlocked);
+    Debug.Log("levelUnlocked object: " + levelUnlocked.name);
+    Debug.Log("levelLocked object: " + levelLocked.name);
 
-        if (!isUnlocked) return;
-
-        // Update bintang
-        star1Unlocked.SetActive(stars >= 1);
-        star1Locked.SetActive(stars < 1);
-
-        star2Unlocked.SetActive(stars >= 2);
-        star2Locked.SetActive(stars < 2);
-
-        star3Unlocked.SetActive(stars >= 3);
-        star3Locked.SetActive(stars < 3);
-    }
+    levelUnlocked.SetActive(isUnlocked);
+    levelLocked.SetActive(!isUnlocked);
+}
 
     bool IsLevelUnlocked()
     {
@@ -52,21 +44,14 @@ public class LevelButton : MonoBehaviour
 
     // Assign ke tombol OnClick
     public void OnLevelClicked()
-    {
-        if (!IsLevelUnlocked()) return;
+{
+    Debug.Log("Button diklik! Level: " + levelIndex);
+    Debug.Log("IsUnlocked: " + IsLevelUnlocked());
 
-        int stars = LevelProgressManager.GetStars(levelIndex);
+    if (!IsLevelUnlocked()) return;
 
-        // Tentukan scene mana yang dibuka
-        if (stars == 0)
-        {
-            // Langsung ke Materi
-            SceneLoader.LoadMateri(levelIndex);
-        }
-        else
-        {
-            // Tampilkan popup pilihan (ulang dari materi/kuis/game)
-            LevelSelectPopup.Show(levelIndex, stars);
-        }
-    }
+    Debug.Log("Loading scene: Materi_" + levelIndex);
+    PlayerPrefs.SetInt("CurrentLevel", levelIndex);
+    SceneManager.LoadScene("Materi_" + levelIndex);
+}
 }

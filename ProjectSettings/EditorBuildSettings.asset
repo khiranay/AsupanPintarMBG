@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Home.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/RouteMap.unity
+    guid: abd90d233b2c85741b1d18d1500762d7
+  - enabled: 1
+    path: Assets/Scenes/Materi_1.unity
+    guid: 49b266d16baf0174cbf6e07217a37480
+  - enabled: 1
+    path: Assets/Scenes/Kuis_1.unity
+    guid: c22bf2ea44caeaf47b36ce369d8b6b84
+  - enabled: 1
+    path: Assets/Scenes/Game_1.unity
+    guid: 869e8b48c2625464bafee894f529ea8f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
