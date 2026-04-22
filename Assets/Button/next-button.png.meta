@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: c39b6247ea547d141b6e0d971159318e
+guid: ba596a9106a53d24382f5f714e89cc73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1331919724986779065
-    second: ASSET MBG (5)_0
+      213: 2666800102161671145
+    second: ASSET MBG (4)_0
+  - first:
+      213: -5404802390923956632
+    second: ASSET MBG (4)_1
+  - first:
+      213: 5677239425174468060
+    second: ASSET MBG (4)_2
+  - first:
+      213: -5913719838407757681
+    second: ASSET MBG (4)_3
+  - first:
+      213: 8567548582393646126
+    second: ASSET MBG (4)_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ASSET MBG (5)_0
+      name: ASSET MBG (4)_0
       rect:
         serializedVersion: 2
-        x: 885
-        y: 768
-        width: 2526
-        height: 837
+        x: 1104
+        y: 496
+        width: 1972
+        height: 1449
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9b54c2ddeedeb7210800000000000000
-      internalID: 1331919724986779065
+      spriteID: 9e362584090620520800000000000000
+      internalID: 2666800102161671145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG (4)_1
+      rect:
+        serializedVersion: 2
+        x: 1895
+        y: 456
+        width: 175
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86eabcf7cd84ef4b0800000000000000
+      internalID: -5404802390923956632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG (4)_2
+      rect:
+        serializedVersion: 2
+        x: 2239
+        y: 464
+        width: 42
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd5fd5a8d2b99ce40800000000000000
+      internalID: 5677239425174468060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG (4)_3
+      rect:
+        serializedVersion: 2
+        x: 2295
+        y: 463
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f807682a32f3eeda0800000000000000
+      internalID: -5913719838407757681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG (4)_4
+      rect:
+        serializedVersion: 2
+        x: 2430
+        y: 458
+        width: 39
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c8979fa0c06e670800000000000000
+      internalID: 8567548582393646126
       vertices: []
       indices: 
       edges: []
@@ -135,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ASSET MBG (5)_0: 1331919724986779065
+      ASSET MBG (4)_0: 2666800102161671145
+      ASSET MBG (4)_1: -5404802390923956632
+      ASSET MBG (4)_2: 5677239425174468060
+      ASSET MBG (4)_3: -5913719838407757681
+      ASSET MBG (4)_4: 8567548582393646126
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

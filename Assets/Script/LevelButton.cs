@@ -18,22 +18,29 @@ public class LevelButton : MonoBehaviour
     public GameObject levelLocked;   // Level1 (yang ada lock)
 
     void Start()
-{
-    Debug.Log("Level " + levelIndex + " | IsUnlocked: " + IsLevelUnlocked());
-    UpdateDisplay();
-}
+    {
+        UpdateDisplay();
+    }
 
-public void UpdateDisplay()
-{
-    int stars = LevelProgressManager.GetStars(levelIndex);
-    bool isUnlocked = IsLevelUnlocked();
+    public void UpdateDisplay()
+    {
+        int stars = LevelProgressManager.GetStars(levelIndex);
+        bool isUnlocked = IsLevelUnlocked();
 
-    Debug.Log("levelUnlocked object: " + levelUnlocked.name);
-    Debug.Log("levelLocked object: " + levelLocked.name);
+        levelUnlocked.SetActive(isUnlocked);
+        levelLocked.SetActive(!isUnlocked);
 
-    levelUnlocked.SetActive(isUnlocked);
-    levelLocked.SetActive(!isUnlocked);
-}
+        if (!isUnlocked) return;
+
+        star1Unlocked.SetActive(stars >= 1);
+        star1Locked.SetActive(stars < 1);
+
+        star2Unlocked.SetActive(stars >= 2);
+        star2Locked.SetActive(stars < 2);
+
+        star3Unlocked.SetActive(stars >= 3);
+        star3Locked.SetActive(stars < 3);
+    }
 
     bool IsLevelUnlocked()
     {
@@ -43,15 +50,12 @@ public void UpdateDisplay()
     }
 
     // Assign ke tombol OnClick
+    
     public void OnLevelClicked()
-{
-    Debug.Log("Button diklik! Level: " + levelIndex);
-    Debug.Log("IsUnlocked: " + IsLevelUnlocked());
+    {
+        if (!IsLevelUnlocked()) return;
 
-    if (!IsLevelUnlocked()) return;
-
-    Debug.Log("Loading scene: Materi_" + levelIndex);
-    PlayerPrefs.SetInt("CurrentLevel", levelIndex);
-    SceneManager.LoadScene("Materi_" + levelIndex);
-}
+        PlayerPrefs.SetInt("CurrentLevel", levelIndex);
+        SceneManager.LoadScene("Materi");
+    }
 }

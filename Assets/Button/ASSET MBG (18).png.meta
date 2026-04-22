@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: c39b6247ea547d141b6e0d971159318e
+guid: f71b4da6afc9eb54f9dbe1e4109e80d9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1331919724986779065
-    second: ASSET MBG (5)_0
+      213: 1943430976678693541
+    second: ASSET MBG (18)_0
+  - first:
+      213: -3484127645791710885
+    second: ASSET MBG (18)_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ASSET MBG (5)_0
+      name: ASSET MBG (18)_0
       rect:
         serializedVersion: 2
-        x: 885
-        y: 768
-        width: 2526
-        height: 837
+        x: 1813
+        y: 919
+        width: 612
+        height: 606
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9b54c2ddeedeb7210800000000000000
-      internalID: 1331919724986779065
+      spriteID: 5aa8c623d2478fa10800000000000000
+      internalID: 1943430976678693541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG (18)_1
+      rect:
+        serializedVersion: 2
+        x: 3506
+        y: 364
+        width: 19
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b519778ad54e5afc0800000000000000
+      internalID: -3484127645791710885
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ASSET MBG (5)_0: 1331919724986779065
+      ASSET MBG (18)_0: 1943430976678693541
+      ASSET MBG (18)_1: -3484127645791710885
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
