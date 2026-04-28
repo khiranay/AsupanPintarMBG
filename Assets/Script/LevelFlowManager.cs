@@ -10,9 +10,9 @@ public static class LevelFlowManager
 {
     // ─── Nama scene (sesuaikan dengan nama scene di Build Settings) ───
     public const string RouteMapScene   = "RouteMap";
-    public const string KuisScene       = "SceneKuis";
-    public const string GameScene       = "SceneGame";
-    public const string MateriScene     = "SceneMateri";   // scene yg berisi semua MateriLevel
+    public const string KuisScene       = "Kuis";
+    public const string GameScene       = "Game";
+    public const string MateriScene     = "Materi";   // scene yg berisi semua MateriLevel
 
     // PlayerPrefs key
     public const string KeyCurrentLevel = "CurrentLevel";

@@ -1,136 +1,218 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Attach ke GameObject KuisManager di Scene Kuis.
-/// Kuis 1 soal per level: Benar = 100, Salah = 0.
-/// Popup hasil memiliki 3 tombol: Next ke Game, Ulangi, Back to Home.
-/// </summary>
-public class KuisNavigator : MonoBehaviour
+public class QuizManager : MonoBehaviour
 {
-    [Header("Panel Kuis per Level (index 0 = Level 1, dst.)")]
-    public GameObject[] kuisPanels;
+    [Header("=== DATA KUIS SEMUA LEVEL ===")]
+    public List<QuizData> semuaKuis;
 
-    [Header("Popup yang muncul setelah kuis selesai")]
-    public GameObject popupHasil;
+    [Header("=== PANEL SOAL ===")]
+    public GameObject panelSoal;
+    public TextMeshProUGUI teksLevelLabel;
+    public TextMeshProUGUI teksPertanyaan;
+    public Button[] tombolPilihan;
+    public TextMeshProUGUI[] teksPilihan;
 
-    [Header("Overlay (background gelap di belakang popup)")]
-    public GameObject overlay;
+    [Header("=== PANEL BENAR ===")]
+    public GameObject panelBenar;
+    public TextMeshProUGUI teksPenjelasanBenar;
+    public Image gambarJawabanBenar;      // ← Image jawaban benar
+    public Image ikonPanelBenar;
+    public Button tombolLanjutBenar;
 
-    [Header("Text nilai di popup (assign Text atau TMP_Text)")]
-    public Text nilaiText;                  // Jika pakai Text biasa
-    // public TMP_Text nilaiText;           // Uncomment jika pakai TextMeshPro, dan comment baris atas
+    [Header("=== PANEL SALAH ===")]
+    public GameObject panelSalah;
+    public TextMeshProUGUI teksPenjelasanSalah;
+    public Image gambarJawabanSalah;      // ← Image jawaban salah
+    public Image ikonPanelSalah;
+    public Button tombolCobaLagi;
+    public Button tombolLanjutSalah;
 
-    [Header("Nama Scene")]
-    public string gameSceneName      = "SceneGame";
-    public string routeMapSceneName  = "RouteMap";
+    [Header("=== FEEDBACK WARNA ===")]
+    public Color warnaDefault;
+    public Color warnaBenar;
+    public Color warnaSalah;
 
-    // Simpan nilai sementara
-    private int nilaiSaatIni = 0;
-    private int currentLevel = 1;
+    private int currentLevel = 0;
+    private QuizData currentQuiz;
+    private bool sudahMenjawab = false;
+    private int pilihanPemain = -1;
 
     void Start()
     {
-        if (overlay != null)    overlay.SetActive(false);
-        if (popupHasil != null) popupHasil.SetActive(false);
+        panelSoal.SetActive(false);
+        panelBenar.SetActive(false);
+        panelSalah.SetActive(false);
 
-        currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
-        ShowKuisForLevel(currentLevel);
+        if (tombolLanjutBenar != null)
+            tombolLanjutBenar.onClick.AddListener(OnTombolLanjut);
+
+        if (tombolCobaLagi != null)
+            tombolCobaLagi.onClick.AddListener(OnTombolCobaLagi);
+
+        if (tombolLanjutSalah != null)
+            tombolLanjutSalah.onClick.AddListener(OnTombolLanjut);
+
+        for (int i = 0; i < tombolPilihan.Length; i++)
+        {
+            int index = i;
+            tombolPilihan[i].onClick.AddListener(() => OnPilihanDiklik(index));
+        }
+        MulaiKuis(1);
     }
 
-    private void ShowKuisForLevel(int level)
+    public void MulaiKuis(int levelNumber)
     {
-        int index = level - 1;
-        for (int i = 0; i < kuisPanels.Length; i++)
+        currentQuiz = semuaKuis.Find(q => q.levelId == levelNumber);
+
+        if (currentQuiz == null)
         {
-            if (kuisPanels[i] != null)
-                kuisPanels[i].SetActive(i == index);
+            Debug.LogError($"[QuizManager] Data kuis Level {levelNumber} tidak ditemukan!");
+            return;
+        }
+
+        currentLevel = levelNumber;
+        sudahMenjawab = false;
+        pilihanPemain = -1;
+
+        TampilkanSoal();
+    }
+
+    void TampilkanSoal()
+    {
+        panelBenar.SetActive(false);
+        panelSalah.SetActive(false);
+        panelSoal.SetActive(true);
+
+        if (teksLevelLabel != null)
+            teksLevelLabel.text = $"{currentLevel}";
+
+        if (teksPertanyaan != null)
+            teksPertanyaan.text = currentQuiz.pertanyaan;
+
+        string[] labelHuruf = { "A", "B", "C", "D" };
+        for (int i = 0; i < tombolPilihan.Length; i++)
+        {
+            SetWarnaTombol(i, warnaDefault);
+            tombolPilihan[i].interactable = true;
+
+            if (i < currentQuiz.pilihanJawaban.Length)
+            {
+                if (teksPilihan[i] != null)
+                    teksPilihan[i].text = $"{labelHuruf[i]}. {currentQuiz.pilihanJawaban[i]}";
+                tombolPilihan[i].gameObject.SetActive(true);
+                teksPilihan[i].color = Color.black;
+            }
+            else
+            {
+                tombolPilihan[i].gameObject.SetActive(false);
+            }
         }
     }
 
-    // ── Dipanggil tombol jawaban ──────────────────────────────────
-
-    /// <summary>
-    /// Hubungkan ke tombol jawaban BENAR.
-    /// </summary>
-    public void JawabBenar()
+    void OnPilihanDiklik(int indexDipilih)
     {
-        nilaiSaatIni = 100;
-        TampilkanPopup();
+        if (sudahMenjawab) return;
+
+        sudahMenjawab = true;
+        pilihanPemain = indexDipilih;
+
+        foreach (var tombol in tombolPilihan)
+            tombol.interactable = false;
+
+        bool isBenar = (indexDipilih == currentQuiz.indexJawabanBenar);
+
+        SetWarnaTombol(indexDipilih, isBenar ? warnaBenar : warnaSalah);
+
+        if (!isBenar)
+            SetWarnaTombol(currentQuiz.indexJawabanBenar, warnaBenar);
+
+        StartCoroutine(TampilkanPanelHasil(isBenar, 0.8f));
     }
 
-    /// <summary>
-    /// Hubungkan ke tombol jawaban SALAH.
-    /// </summary>
-    public void JawabSalah()
+    IEnumerator TampilkanPanelHasil(bool isBenar, float delay)
     {
-        nilaiSaatIni = 0;
-        TampilkanPopup();
+        yield return new WaitForSeconds(delay);
+        panelSoal.SetActive(false);
+
+        if (isBenar) TampilkanPanelBenar();
+        else TampilkanPanelSalah();
     }
 
-    // ── Internal ──────────────────────────────────────────────────
-
-    private void TampilkanPopup()
+    void TampilkanPanelBenar()
     {
-        // Sembunyikan semua panel kuis
-        foreach (var panel in kuisPanels)
-            if (panel != null) panel.SetActive(false);
+        panelBenar.SetActive(true);
 
-        // Simpan nilai ke PlayerPrefs
-        PlayerPrefs.SetInt("NilaiKuis_Level" + currentLevel, nilaiSaatIni);
-        PlayerPrefs.Save();
+        // Isi teks penjelasan
+        if (teksPenjelasanBenar != null)
+            teksPenjelasanBenar.text = currentQuiz.penjelasanBenar;
 
-        // Update text nilai di popup
-        if (nilaiText != null)
-            nilaiText.text = "Nilai: " + nilaiSaatIni;
+        // Tampilkan gambar jawaban benar
+        if (gambarJawabanBenar != null && currentQuiz.ikonBenar != null)
+        {
+            gambarJawabanBenar.sprite = currentQuiz.ikonBenar;
+            gambarJawabanBenar.gameObject.SetActive(true);
+        }
 
-        // Tampilkan overlay + popup
-        if (overlay != null)    overlay.SetActive(true);
-        if (popupHasil != null) popupHasil.SetActive(true);
+        // Tampilkan ikon dekorasi (opsional)
+        if (ikonPanelBenar != null && currentQuiz.ikonBenar != null)
+        {
+            ikonPanelBenar.sprite = currentQuiz.ikonBenar;
+            ikonPanelBenar.gameObject.SetActive(true);
+        }
     }
 
-    // ── Tombol di dalam Popup ─────────────────────────────────────
-
-    /// <summary>
-    /// Tombol "Next" di popup → pindah ke Scene Game.
-    /// </summary>
-    public void OnPopupNextToGame()
+    void TampilkanPanelSalah()
     {
-        SceneManager.LoadScene(gameSceneName);
+        panelSalah.SetActive(true);
+
+        // Isi teks penjelasan
+        if (teksPenjelasanSalah != null)
+            teksPenjelasanSalah.text = currentQuiz.penjelasanSalah;
+
+        // Tampilkan gambar jawaban salah
+        if (gambarJawabanSalah != null && currentQuiz.ikonSalah != null)
+        {
+            gambarJawabanSalah.sprite = currentQuiz.ikonSalah;
+            gambarJawabanSalah.gameObject.SetActive(true);
+        }
+
+        // Tampilkan ikon dekorasi (opsional)
+        if (ikonPanelSalah != null && currentQuiz.ikonSalah != null)
+        {
+            ikonPanelSalah.sprite = currentQuiz.ikonSalah;
+            ikonPanelSalah.gameObject.SetActive(true);
+        }
     }
 
-    /// <summary>
-    /// Tombol "Ulangi" di popup → sembunyikan popup, tampilkan kuis lagi dari awal.
-    /// </summary>
-    public void OnPopupUlangi()
+    void OnTombolLanjut()
+{
+    panelBenar.SetActive(false);
+    panelSalah.SetActive(false);
+
+    LevelProgressManager.CompleteKuis(currentLevel);
+    LevelFlowManager.OnKuisSelesai();
+    string namaScene = $"Game_Level{currentLevel}";
+    Debug.Log($"[QuizManager] Masuk ke scene {namaScene}");
+    SceneManager.LoadScene(namaScene);
+}
+
+    void OnTombolCobaLagi()
     {
-        // Tutup popup & overlay
-        if (popupHasil != null) popupHasil.SetActive(false);
-        if (overlay != null)    overlay.SetActive(false);
-
-        // Reset nilai
-        nilaiSaatIni = 0;
-
-        // Tampilkan panel kuis lagi
-        ShowKuisForLevel(currentLevel);
+        panelSalah.SetActive(false);
+        sudahMenjawab = false;
+        TampilkanSoal();
     }
+    
 
-    /// <summary>
-    /// Tombol "Back to Home" di popup → kembali ke RouteMap.
-    /// </summary>
-    public void OnPopupBackToHome()
+    void SetWarnaTombol(int index, Color warna)
     {
-        SceneManager.LoadScene(routeMapSceneName);
-    }
-
-    // ── Tombol Back di panel kuis (sebelum menjawab) ──────────────
-
-    /// <summary>
-    /// Tombol Back di panel kuis → kembali ke RouteMap.
-    /// </summary>
-    public void OnBackPressed()
-    {
-        SceneManager.LoadScene(routeMapSceneName);
+        if (index < 0 || index >= tombolPilihan.Length) return;
+        Image bg = tombolPilihan[index].GetComponent<Image>();
+        if (bg != null) bg.color = warna;
     }
 }

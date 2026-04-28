@@ -19,6 +19,15 @@ public class LevelButton : MonoBehaviour
 
     void Start()
     {
+    Debug.Log("LevelButton Start");
+
+    if (levelUnlocked == null) Debug.LogError("levelUnlocked NULL");
+    if (levelLocked == null) Debug.LogError("levelLocked NULL");
+
+    if (star1Unlocked == null) Debug.LogError("star1Unlocked NULL");
+    if (star1Locked == null) Debug.LogError("star1Locked NULL");
+
+    UpdateDisplay();
         UpdateDisplay();
     }
 
