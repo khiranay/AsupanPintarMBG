@@ -36,6 +36,10 @@ public class QuizManager : MonoBehaviour
     public Color warnaDefault;
     public Color warnaBenar;
     public Color warnaSalah;
+    [Header("=== SPRITE STATE ===")]
+    public Sprite spriteDefault;
+    public Sprite spriteBenar;
+    public Sprite spriteSalah;
 
     private int currentLevel = 0;
     private QuizData currentQuiz;
@@ -97,7 +101,7 @@ public class QuizManager : MonoBehaviour
         string[] labelHuruf = { "A", "B", "C", "D" };
         for (int i = 0; i < tombolPilihan.Length; i++)
         {
-            SetWarnaTombol(i, warnaDefault);
+            SetSpriteTombol(i, spriteDefault);
             tombolPilihan[i].interactable = true;
 
             if (i < currentQuiz.pilihanJawaban.Length)
@@ -126,10 +130,10 @@ public class QuizManager : MonoBehaviour
 
         bool isBenar = (indexDipilih == currentQuiz.indexJawabanBenar);
 
-        SetWarnaTombol(indexDipilih, isBenar ? warnaBenar : warnaSalah);
+       SetSpriteTombol(indexDipilih, isBenar ? spriteBenar : spriteSalah);
 
-        if (!isBenar)
-            SetWarnaTombol(currentQuiz.indexJawabanBenar, warnaBenar);
+if (!isBenar)
+    SetSpriteTombol(currentQuiz.indexJawabanBenar, spriteBenar);
 
         StartCoroutine(TampilkanPanelHasil(isBenar, 0.8f));
     }
@@ -208,11 +212,16 @@ public class QuizManager : MonoBehaviour
         TampilkanSoal();
     }
     
-
-    void SetWarnaTombol(int index, Color warna)
+    void SetSpriteTombol(int index, Sprite sprite)
     {
-        if (index < 0 || index >= tombolPilihan.Length) return;
-        Image bg = tombolPilihan[index].GetComponent<Image>();
-        if (bg != null) bg.color = warna;
+    if (index < 0 || index >= tombolPilihan.Length) return;
+
+    Transform bg = tombolPilihan[index].transform.Find("Background");
+    if (bg != null)
+    {
+        Image img = bg.GetComponent<Image>();
+        if (img != null)
+            img.sprite = sprite;
+    }
     }
 }
