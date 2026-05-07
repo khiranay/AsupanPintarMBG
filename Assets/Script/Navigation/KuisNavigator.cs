@@ -66,7 +66,7 @@ public class QuizManager : MonoBehaviour
             int index = i;
             tombolPilihan[i].onClick.AddListener(() => OnPilihanDiklik(index));
         }
-        MulaiKuis(1);
+         MulaiKuis(LevelFlowManager.GetCurrentLevel());
     }
 
     public void MulaiKuis(int levelNumber)
@@ -200,9 +200,6 @@ if (!isBenar)
 
     LevelProgressManager.CompleteKuis(currentLevel);
     LevelFlowManager.OnKuisSelesai();
-    string namaScene = $"Game_Level{currentLevel}";
-    Debug.Log($"[QuizManager] Masuk ke scene {namaScene}");
-    SceneManager.LoadScene(namaScene);
 }
 
     void OnTombolCobaLagi()

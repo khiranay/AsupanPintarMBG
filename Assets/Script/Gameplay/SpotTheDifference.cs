@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using System.Collections.Generic;
 
 public class SpotTheDifference : MonoBehaviour
@@ -15,15 +16,24 @@ public class SpotTheDifference : MonoBehaviour
     public GameObject highlightPrefab;
     public Transform highlightParent;
 
+    [Header("Popup Hasil")]
+    public GameObject popup;
+    public TextMeshProUGUI teksHasil;   // teks skor misal "4/4"
+    public TextMeshProUGUI teksBenar;   // teks jumlah benar
+    public TextMeshProUGUI teksSalah;   // teks jumlah salah
+
     private List<bool> foundList = new List<bool>();
+    private int jumlahBenar = 0;
+    private int jumlahSalah = 0;
 
     void Start()
     {
         foundList.Clear();
         foreach (var area in differenceAreas)
-        {
             foundList.Add(false);
-        }
+
+        if (popup != null)
+            popup.SetActive(false);
     }
 
     public void OnClickImageB(PointerEventData pointerData)
@@ -43,16 +53,16 @@ public class SpotTheDifference : MonoBehaviour
             if (RectTransformUtility.RectangleContainsScreenPoint(area, screenPos))
             {
                 foundList[i] = true;
+                jumlahBenar++;
 
-                // highlight di tengah area
                 SpawnHighlight(area.position, true);
-
                 CheckAllFound();
                 return;
             }
         }
 
-        // kalau salah
+        // Klik salah
+        jumlahSalah++;
         SpawnHighlight(screenPos, false);
     }
 
@@ -67,7 +77,6 @@ public class SpotTheDifference : MonoBehaviour
         GameObject obj = Instantiate(highlightPrefab, highlightParent);
 
         RectTransform parentRect = highlightParent as RectTransform;
-
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             parentRect,
             screenPos,
@@ -87,13 +96,67 @@ public class SpotTheDifference : MonoBehaviour
     void CheckAllFound()
     {
         foreach (bool found in foundList)
-        {
             if (!found) return;
-        }
 
-        Debug.Log("Semua perbedaan ditemukan!");
+        TampilkanPopup();
+    }
 
-        int level = PlayerPrefs.GetInt("CurrentLevel", 1);
+    void TampilkanPopup()
+    {
+        // Isi teks skor
+        if (teksHasil != null)
+            teksHasil.text = jumlahBenar + "/" + differenceAreas.Count;
+
+        if (teksBenar != null)
+            teksBenar.text = jumlahBenar.ToString();
+
+        if (teksSalah != null)
+            teksSalah.text = jumlahSalah.ToString();
+
+        // Simpan bintang 3 ke PlayerPrefs → tampil di RouteMap
+        int level = LevelFlowManager.GetCurrentLevel();
         LevelProgressManager.CompleteMiniGame(level);
+
+        if (popup != null)
+            popup.SetActive(true);
+    }
+
+    /// <summary>
+    /// Hubungkan ke LanjutButton di popup.
+    /// Unlock level berikutnya dan kembali ke RouteMap.
+    /// </summary>
+    public void OnTombolLanjut()
+    {
+        LevelFlowManager.OnGameSelesai();
+    }
+
+    /// <summary>
+    /// Hubungkan ke CobaLagiButton di popup.
+    /// Reset game dari awal.
+    /// </summary>
+    public void OnTombolCobaLagi()
+    {
+        jumlahBenar = 0;
+        jumlahSalah = 0;
+
+        foundList.Clear();
+        foreach (var area in differenceAreas)
+            foundList.Add(false);
+
+        // Hapus semua highlight
+        foreach (Transform child in highlightParent)
+            Destroy(child.gameObject);
+
+        if (popup != null)
+            popup.SetActive(false);
+    }
+
+    /// <summary>
+    /// Hubungkan ke HomeButton di popup.
+    /// Kembali ke RouteMap tanpa unlock level berikutnya.
+    /// </summary>
+    public void OnTombolHome()
+    {
+        LevelFlowManager.GoToRouteMap();
     }
 }

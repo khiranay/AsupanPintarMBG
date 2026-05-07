@@ -1,28 +1,34 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Attach script ini ke setiap GameObject MateriLevel(N).
-/// Atur subPanels di Inspector: drag sub-panel secara berurutan
-/// (misal: CekBau, CekWarna, CekRasa untuk Level1).
+/// Atur subPanels di Inspector: drag sub-panel secara berurutan.
+/// Isi levelNumber sesuai level panel ini (1-7).
+/// Script akan otomatis mematikan dirinya jika bukan level yang sedang dimainkan.
 /// </summary>
 public class MateriNavigator : MonoBehaviour
 {
-    [Header("Sub-Panels dalam Materi ini (urut dari awal)")]
-    public GameObject[] subPanels;
-
-    [Header("Nomor Level ini (1-7)")]
+    [Header("Nomor Level panel ini (1-7)")]
     public int levelNumber = 1;
 
-    [Header("Nama Scene Kuis")]
-    public string kuisSceneName = "SceneKuis";
+    [Header("Sub-Panels dalam Materi ini (urut dari awal)")]
+    public GameObject[] subPanels;
 
     private int currentIndex = 0;
 
     void OnEnable()
     {
-        // Reset ke sub-panel pertama setiap kali panel ini dibuka
+        int currentLevel = LevelFlowManager.GetCurrentLevel();
+
+        // Jika bukan panel untuk level ini, matikan diri sendiri
+        if (levelNumber != currentLevel)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        // Reset ke sub-panel pertama
         currentIndex = 0;
         ShowPanel(currentIndex);
     }
@@ -42,7 +48,7 @@ public class MateriNavigator : MonoBehaviour
     /// <summary>
     /// Hubungkan tombol Next di tiap sub-panel ke method ini.
     /// Jika masih ada sub-panel berikutnya → tampilkan.
-    /// Jika sudah sub-panel terakhir → pindah ke Kuis.
+    /// Jika sudah sub-panel terakhir → simpan bintang 1 + pindah ke Kuis.
     /// </summary>
     public void OnNextPressed()
     {
@@ -50,12 +56,10 @@ public class MateriNavigator : MonoBehaviour
 
         if (currentIndex < subPanels.Length)
         {
-            // Masih ada sub-panel berikutnya
             ShowPanel(currentIndex);
         }
         else
         {
-            // Semua sub-panel selesai → simpan level & pindah ke Kuis
             GoToKuis();
         }
     }
@@ -73,17 +77,16 @@ public class MateriNavigator : MonoBehaviour
         }
         else
         {
-            // Sub-panel pertama → kembali ke RouteMap
             LevelFlowManager.GoToRouteMap();
         }
     }
 
     private void GoToKuis()
     {
-        // Simpan level yang sedang dimainkan
-        PlayerPrefs.SetInt("CurrentLevel", levelNumber);
-        PlayerPrefs.Save();
+        // Simpan bintang 1 setelah materi selesai
+        LevelProgressManager.CompleteMateri(levelNumber);
 
-        SceneManager.LoadScene(kuisSceneName);
+        // Pindah ke scene Kuis
+        SceneManager.LoadScene(LevelFlowManager.KuisScene);
     }
 }

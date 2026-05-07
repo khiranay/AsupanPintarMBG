@@ -28,7 +28,6 @@ public class LevelButton : MonoBehaviour
     if (star1Locked == null) Debug.LogError("star1Locked NULL");
 
     UpdateDisplay();
-        UpdateDisplay();
     }
 
     public void UpdateDisplay()
