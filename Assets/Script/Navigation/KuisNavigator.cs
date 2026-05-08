@@ -193,7 +193,7 @@ if (!isBenar)
         }
     }
 
-    void OnTombolLanjut()
+    public void OnTombolLanjut()
 {
     panelBenar.SetActive(false);
     panelSalah.SetActive(false);
@@ -201,8 +201,11 @@ if (!isBenar)
     LevelProgressManager.CompleteKuis(currentLevel);
     LevelFlowManager.OnKuisSelesai();
 }
-
-    void OnTombolCobaLagi()
+public void OnTombolKembali()
+{
+    LevelFlowManager.GoToRouteMap(); // → load scene RouteMap
+}
+    public void OnTombolCobaLagi()
     {
         panelSalah.SetActive(false);
         sudahMenjawab = false;

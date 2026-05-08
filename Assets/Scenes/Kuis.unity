@@ -231,7 +231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.9999676, y: -78.35857}
+  m_AnchoredPosition: {x: 7.000017, y: -62.358578}
   m_SizeDelta: {x: 946.9409, y: 94.171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &180771612
@@ -351,8 +351,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 403, y: 3}
-  m_SizeDelta: {x: 178.2581, y: 342.3042}
+  m_AnchoredPosition: {x: 403, y: -19.1036}
+  m_SizeDelta: {x: 178.2581, y: 383.0862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199165185
 MonoBehaviour:
@@ -605,9 +605,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2146236404}
-        m_TargetAssemblyTypeName: HomeButton, Assembly-CSharp
-        m_MethodName: OnTombolHomediklik
+      - m_Target: {fileID: 1666759027}
+        m_TargetAssemblyTypeName: QuizManager, Assembly-CSharp
+        m_MethodName: OnTombolKembali
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -817,9 +817,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MateriNavigator, Assembly-CSharp
-        m_MethodName: OnBackPressed
+      - m_Target: {fileID: 1666759027}
+        m_TargetAssemblyTypeName: QuizManager, Assembly-CSharp
+        m_MethodName: OnTombolCobaLagi
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1024,9 +1024,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2146236404}
-        m_TargetAssemblyTypeName: HomeButton, Assembly-CSharp
-        m_MethodName: OnTombolHomediklik
+      - m_Target: {fileID: 1666759027}
+        m_TargetAssemblyTypeName: QuizManager, Assembly-CSharp
+        m_MethodName: OnTombolKembali
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1191,7 +1191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.9999676, y: -189.27257}
+  m_AnchoredPosition: {x: 7.000017, y: -173.27258}
   m_SizeDelta: {x: 946.9409, y: 94.171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &897768043
@@ -2306,7 +2306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.9999657, y: 34}
+  m_AnchoredPosition: {x: 7, y: 50}
   m_SizeDelta: {x: 946.9409, y: 94.171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583965593
@@ -2426,8 +2426,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 425.31003, y: -2.7999659}
-  m_SizeDelta: {x: 136.9086, y: 344.77}
+  m_AnchoredPosition: {x: 425.31003, y: -15.8612}
+  m_SizeDelta: {x: 136.9086, y: 368.8684}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1624157410
 MonoBehaviour:
@@ -2776,7 +2776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1683120894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3014,9 +3014,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MateriNavigator, Assembly-CSharp
-        m_MethodName: OnBackPressed
+      - m_Target: {fileID: 1666759027}
+        m_TargetAssemblyTypeName: QuizManager, Assembly-CSharp
+        m_MethodName: OnTombolLanjut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3283,9 +3283,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MateriNavigator, Assembly-CSharp
-        m_MethodName: OnBackPressed
+      - m_Target: {fileID: 1666759027}
+        m_TargetAssemblyTypeName: QuizManager, Assembly-CSharp
+        m_MethodName: OnTombolLanjut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -37,7 +37,7 @@ public class DragDropManager : MonoBehaviour
         jumlahSalah = 0;
 
         if (scoreText != null)
-            scoreText.text = "Score: 0";
+            scoreText.text = "0";
 
         StartCoroutine(SpawnFood());
     }
@@ -95,7 +95,7 @@ public class DragDropManager : MonoBehaviour
         {
             score += 10;
             jumlahBenar++;
-            scoreText.text = "Score: " + score;
+            scoreText.text = score.ToString();
         }
         else
         {
