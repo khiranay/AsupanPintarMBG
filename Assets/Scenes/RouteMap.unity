@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 24930536}
   - component: {fileID: 24930534}
   - component: {fileID: 24930537}
+  - component: {fileID: 24930538}
   m_Layer: 5
   m_Name: Level6
   m_TagString: Untagged
@@ -282,6 +283,21 @@ MonoBehaviour:
   star3Locked: {fileID: 493337740}
   levelUnlocked: {fileID: 901920720}
   levelLocked: {fileID: 423830359}
+--- !u!114 &24930538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24930532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &36981101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,6 +1797,7 @@ GameObject:
   - component: {fileID: 344690010}
   - component: {fileID: 344690008}
   - component: {fileID: 344690011}
+  - component: {fileID: 344690012}
   m_Layer: 5
   m_Name: Level2
   m_TagString: Untagged
@@ -1894,6 +1911,21 @@ MonoBehaviour:
   star3Locked: {fileID: 730424418}
   levelUnlocked: {fileID: 918930440}
   levelLocked: {fileID: 13472137}
+--- !u!114 &344690012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344690006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &371095077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3126,6 +3158,7 @@ GameObject:
   - component: {fileID: 640398814}
   - component: {fileID: 640398812}
   - component: {fileID: 640398815}
+  - component: {fileID: 640398816}
   m_Layer: 5
   m_Name: Level4
   m_TagString: Untagged
@@ -3239,6 +3272,21 @@ MonoBehaviour:
   star3Locked: {fileID: 787844080}
   levelUnlocked: {fileID: 2094396145}
   levelLocked: {fileID: 1483558886}
+--- !u!114 &640398816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640398810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &672124905
 GameObject:
   m_ObjectHideFlags: 0
@@ -3514,6 +3562,7 @@ GameObject:
   - component: {fileID: 779307655}
   - component: {fileID: 779307653}
   - component: {fileID: 779307656}
+  - component: {fileID: 779307657}
   m_Layer: 5
   m_Name: Level5
   m_TagString: Untagged
@@ -3627,6 +3676,21 @@ MonoBehaviour:
   star3Locked: {fileID: 1792599495}
   levelUnlocked: {fileID: 1900306327}
   levelLocked: {fileID: 734325172}
+--- !u!114 &779307657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779307651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &787844080
 GameObject:
   m_ObjectHideFlags: 0
@@ -4212,6 +4276,7 @@ GameObject:
   - component: {fileID: 868191697}
   - component: {fileID: 868191695}
   - component: {fileID: 868191698}
+  - component: {fileID: 868191699}
   m_Layer: 5
   m_Name: Level1
   m_TagString: Untagged
@@ -4325,6 +4390,21 @@ MonoBehaviour:
   star3Locked: {fileID: 257997374}
   levelUnlocked: {fileID: 1197509866}
   levelLocked: {fileID: 552639694}
+--- !u!114 &868191699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868191693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &892990709
 GameObject:
   m_ObjectHideFlags: 0
@@ -7917,6 +7997,7 @@ GameObject:
   - component: {fileID: 2045636762}
   - component: {fileID: 2045636760}
   - component: {fileID: 2045636763}
+  - component: {fileID: 2045636764}
   m_Layer: 5
   m_Name: Level3
   m_TagString: Untagged
@@ -8030,6 +8111,21 @@ MonoBehaviour:
   star3Locked: {fileID: 769791548}
   levelUnlocked: {fileID: 188547846}
   levelLocked: {fileID: 426080266}
+--- !u!114 &2045636764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045636758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &2058773376
 GameObject:
   m_ObjectHideFlags: 0
@@ -8460,6 +8556,7 @@ GameObject:
   - component: {fileID: 2134989766}
   - component: {fileID: 2134989764}
   - component: {fileID: 2134989767}
+  - component: {fileID: 2134989768}
   m_Layer: 5
   m_Name: Level7
   m_TagString: Untagged
@@ -8573,6 +8670,21 @@ MonoBehaviour:
   star3Locked: {fileID: 1598870884}
   levelUnlocked: {fileID: 861222696}
   levelLocked: {fileID: 1177079591}
+--- !u!114 &2134989768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134989762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

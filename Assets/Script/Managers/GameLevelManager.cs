@@ -5,66 +5,63 @@ public class GameLevelManager : MonoBehaviour
     public GameObject[] gameLevelPanels;
 
     [Header("Popup Perintah")]
-    public GameObject popupPerintah;    // popup instruksi
-    public GameObject[] popupPerLevel; 
-    // Jika setiap level punya popup berbeda:
-    // Element 0 = popup perintah level 1
-    // Element 1 = popup perintah level 2
-    // dst...
+    public GameObject popupPerintah;
+    public GameObject[] popupPerLevel;
+
+    [Header("Game Manager Per Level")]
+    public WhackAMoleManager[] whackAMoleManagers;
 
     private int currentLevel;
 
     void Start()
     {
         currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+        Debug.Log("CurrentLevel: " + currentLevel);
 
-        // Matikan semua panel game dulu
         foreach (var panel in gameLevelPanels)
         {
             panel.SetActive(false);
         }
 
-        // Tampilkan popup perintah dulu
+        Debug.Log("Memanggil TampilkanPopupPerintah");
         TampilkanPopupPerintah();
     }
 
     void TampilkanPopupPerintah()
     {
-        // Jika popup sama untuk semua level
-        if (popupPerintah != null)
-        {
-            popupPerintah.SetActive(true);
-        }
-
-        // Jika popup beda tiap level
         for (int i = 0; i < popupPerLevel.Length; i++)
         {
             popupPerLevel[i].SetActive(false);
         }
+
         int index = currentLevel - 1;
+
         if (index >= 0 && index < popupPerLevel.Length)
         {
+            // Aktifkan parent (GameLevel) dulu
+            gameLevelPanels[index].SetActive(true);
+
+            // Baru aktifkan popup
             popupPerLevel[index].SetActive(true);
         }
     }
 
-    // Assign ke tombol "Mulai" di popup perintah
-    public void OnTombolMulai()
+    // Assign ke tombol X di popup perintah
+    public void OnTombolTutupPopup()
     {
-        // Tutup semua popup perintah
-        if (popupPerintah != null)
-            popupPerintah.SetActive(false);
-
+        // Tutup popup
         foreach (var popup in popupPerLevel)
         {
             popup.SetActive(false);
         }
 
-        // Baru aktifkan panel game sesuai level
         int index = currentLevel - 1;
-        if (index >= 0 && index < gameLevelPanels.Length)
+
+        // Panggil MulaiGame() jika level ini pakai WhackAMole
+        if (index >= 0 && index < whackAMoleManagers.Length
+            && whackAMoleManagers[index] != null)
         {
-            gameLevelPanels[index].SetActive(true);
+            whackAMoleManagers[index].MulaiGame();
         }
     }
 }

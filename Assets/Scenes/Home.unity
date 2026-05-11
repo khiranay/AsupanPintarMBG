@@ -1548,6 +1548,7 @@ GameObject:
   - component: {fileID: 745127328}
   - component: {fileID: 745127327}
   - component: {fileID: 745127326}
+  - component: {fileID: 745127329}
   m_Layer: 5
   m_Name: ButtonMainkan
   m_TagString: Untagged
@@ -1668,6 +1669,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745127324}
   m_CullTransparentMesh: 1
+--- !u!114 &745127329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745127324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &817759716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,6 +2017,7 @@ GameObject:
   - component: {fileID: 1065700407}
   - component: {fileID: 1065700406}
   - component: {fileID: 1065700405}
+  - component: {fileID: 1065700408}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -2121,6 +2138,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065700403}
   m_CullTransparentMesh: 1
+--- !u!114 &1065700408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065700403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &1156722397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,6 +2306,7 @@ GameObject:
   - component: {fileID: 1181979572}
   - component: {fileID: 1181979571}
   - component: {fileID: 1181979570}
+  - component: {fileID: 1181979573}
   m_Layer: 5
   m_Name: ButtonKenaliMBG
   m_TagString: Untagged
@@ -2394,6 +2427,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181979568}
   m_CullTransparentMesh: 1
+--- !u!114 &1181979573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181979568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &1182638823
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,6 +3750,7 @@ GameObject:
   - component: {fileID: 1866804878}
   - component: {fileID: 1866804877}
   - component: {fileID: 1866804876}
+  - component: {fileID: 1866804879}
   m_Layer: 5
   m_Name: SoundOffIcon
   m_TagString: Untagged
@@ -3822,6 +3871,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866804874}
   m_CullTransparentMesh: 1
+--- !u!114 &1866804879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866804874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374c04bcd96690141b36d3d78d60263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+  clickSound: {fileID: 8300000, guid: 3d5547041bd74bc4f89674e640ece2ba, type: 3}
+  volume: 0.2
+  audioSource: {fileID: 0}
 --- !u!1 &2002862765
 GameObject:
   m_ObjectHideFlags: 0

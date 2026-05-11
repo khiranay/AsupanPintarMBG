@@ -19,6 +19,7 @@ public class WhackAMoleManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI teksSkor;
     public TextMeshProUGUI teksWaktu;
+    public TextMeshProUGUI teksCountdown; // ← tambahkan TextMeshPro countdown
     public GameObject popupHasil;
     public TextMeshProUGUI teksHasilSkor;
 
@@ -35,15 +36,37 @@ public class WhackAMoleManager : MonoBehaviour
             hole.Init(this);
         }
 
-        StartCoroutine(StartGame());
+        // Tidak langsung mulai, tunggu dipanggil dari GameLevelManager
     }
 
-    IEnumerator StartGame()
+    // Dipanggil dari GameLevelManager.OnTombolMulai()
+    public void MulaiGame()
     {
+        StartCoroutine(CountdownMulai());
+    }
+
+    IEnumerator CountdownMulai()
+    {
+        teksCountdown.gameObject.SetActive(true);
+
+        teksCountdown.text = "3";
+        yield return new WaitForSeconds(1f);
+
+        teksCountdown.text = "2";
+        yield return new WaitForSeconds(1f);
+
+        teksCountdown.text = "1";
+        yield return new WaitForSeconds(1f);
+
+        teksCountdown.text = "GO!";
+        yield return new WaitForSeconds(0.5f);
+
+        teksCountdown.gameObject.SetActive(false);
+
+        // Baru mulai game
         isPlaying = true;
         StartCoroutine(SpawnMoles());
         StartCoroutine(Countdown());
-        yield break;
     }
 
     IEnumerator SpawnMoles()
@@ -52,21 +75,18 @@ public class WhackAMoleManager : MonoBehaviour
         {
             float timeRatio = timeLeft / gameDuration;
 
-            // Fase 1: >50% waktu tersisa → weight normal
             if (timeRatio > 0.5f)
             {
                 spawnWeights = new float[] { 40f, 30f, 20f, 10f };
                 spawnInterval = 0.8f;
                 moleVisibleTime = 1.2f;
             }
-            // Fase 2: 25%-50% waktu tersisa → mulai acak
             else if (timeRatio > 0.25f)
             {
                 spawnWeights = new float[] { 25f, 25f, 25f, 25f };
                 spawnInterval = 0.6f;
                 moleVisibleTime = 1.0f;
             }
-            // Fase 3: <25% waktu tersisa → sangat cepat & acak
             else
             {
                 spawnWeights = new float[] { 25f, 25f, 25f, 25f };
@@ -122,6 +142,7 @@ public class WhackAMoleManager : MonoBehaviour
     public void AddScore(int nilai)
     {
         score += nilai;
+        score = Mathf.Min(score, 100);
         teksSkor.text = score.ToString("D4");
     }
 

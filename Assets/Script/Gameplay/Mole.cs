@@ -43,7 +43,7 @@ public class Mole : MonoBehaviour
 
         isHit = true;
         moleImage.sprite = spriteKena;
-        gameManager.AddScore(10);
+        gameManager.AddScore(4);
 
         StartCoroutine(HideAfterDelay(0.3f));
     }
