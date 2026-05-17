@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 41108382}
   - component: {fileID: 41108384}
   - component: {fileID: 41108383}
+  - component: {fileID: 41108385}
   m_Layer: 5
   m_Name: Sound
   m_TagString: Untagged
@@ -269,6 +270,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41108381}
   m_CullTransparentMesh: 1
+--- !u!114 &41108385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41108381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8cf66aa6901e984fbbd18a6e8f40a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VoiceOverToggle
+  voiceOverClip: {fileID: 8300000, guid: f39956b2464240644ab1af309a2bed48, type: 3}
+  iconSoundOn: {fileID: -3108607738565261022, guid: 572f54bcc96f06c4780e10043c30a402, type: 3}
+  iconSoundOff: {fileID: -167780979345083660, guid: 6d01a18881a70c349a8556c2449f7c6a, type: 3}
+  buttonIcon: {fileID: 0}
+  soundButton: {fileID: 0}
 --- !u!1 &50607826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,7 +1054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &198779608
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7852,7 +7870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1413107431
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9262,6 +9280,7 @@ GameObject:
   - component: {fileID: 1692528522}
   - component: {fileID: 1692528524}
   - component: {fileID: 1692528523}
+  - component: {fileID: 1692528525}
   m_Layer: 5
   m_Name: Sound
   m_TagString: Untagged
@@ -9326,6 +9345,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692528521}
   m_CullTransparentMesh: 1
+--- !u!114 &1692528525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692528521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8cf66aa6901e984fbbd18a6e8f40a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VoiceOverToggle
+  voiceOverClip: {fileID: 8300000, guid: fe78cf29990bf254ca6f9dbf161bd30d, type: 3}
+  iconSoundOn: {fileID: -3108607738565261022, guid: 572f54bcc96f06c4780e10043c30a402, type: 3}
+  iconSoundOff: {fileID: -167780979345083660, guid: 6d01a18881a70c349a8556c2449f7c6a, type: 3}
+  buttonIcon: {fileID: 0}
+  soundButton: {fileID: 0}
 --- !u!1 &1693091854
 GameObject:
   m_ObjectHideFlags: 0
@@ -10763,7 +10799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2033307776
 RectTransform:
   m_ObjectHideFlags: 0

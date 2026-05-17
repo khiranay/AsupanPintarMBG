@@ -10,7 +10,7 @@ public class DragDropManager : MonoBehaviour
     public GameObject[] foodPrefabs;
     public Transform spawnPoint;
     public Transform conveyorEnd;
-    public float conveyorSpeed = 1f;    // mulai dari 1, naikkan jika terlalu lambat
+    public float conveyorSpeed = 1f;
     public float spawnInterval = 3f;
 
     [Header("Score")]
@@ -18,6 +18,10 @@ public class DragDropManager : MonoBehaviour
     public int score = 0;
     public int totalFood = 10;
     private int foodProcessed = 0;
+
+    [Header("Popup Perintah (Instruksi)")]
+    [Tooltip("Assign popup instruksi 'Match It' di sini")]
+    public GameObject popupPerintah;
 
     [Header("Popup Hasil")]
     public GameObject popup;
@@ -29,6 +33,11 @@ public class DragDropManager : MonoBehaviour
     private int jumlahSalah = 0;
     private List<GameObject> activeFoods = new List<GameObject>();
 
+    // ── Flag: game belum mulai sampai popup perintah ditutup ──
+    private bool gameStarted = false;
+
+    // ─────────────────────────────────────────────────────────
+
     private void Start()
     {
         score = 0;
@@ -39,11 +48,24 @@ public class DragDropManager : MonoBehaviour
         if (scoreText != null)
             scoreText.text = "0";
 
-        StartCoroutine(SpawnFood());
+        // Tampilkan popup perintah, game BELUM mulai
+        if (popupPerintah != null)
+        {
+            popupPerintah.SetActive(true);
+            gameStarted = false;
+        }
+        else
+        {
+            // Tidak ada popup → langsung mulai
+            StartGame();
+        }
     }
 
     void Update()
     {
+        // Conveyor hanya jalan jika game sudah dimulai
+        if (!gameStarted) return;
+
         for (int i = activeFoods.Count - 1; i >= 0; i--)
         {
             GameObject food = activeFoods[i];
@@ -70,6 +92,26 @@ public class DragDropManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Dipanggil oleh tombol "Tutup / Mulai" di popup perintah.
+    /// Assign ke OnClick() tombol X / Mulai di popup instruksi.
+    /// </summary>
+    public void OnTutupPopupPerintah()
+    {
+        if (popupPerintah != null)
+            popupPerintah.SetActive(false);
+
+        StartGame();
+    }
+
+    private void StartGame()
+    {
+        gameStarted = true;
+        StartCoroutine(SpawnFood());
+    }
+
+    // ─────────────────────────────────────────────────────────
+
     IEnumerator SpawnFood()
     {
         int spawned = 0;
@@ -95,7 +137,8 @@ public class DragDropManager : MonoBehaviour
         {
             score += 10;
             jumlahBenar++;
-            scoreText.text = score.ToString();
+            if (scoreText != null)
+                scoreText.text = score.ToString();
         }
         else
         {
@@ -114,9 +157,7 @@ public class DragDropManager : MonoBehaviour
     void CheckGameEnd()
     {
         if (foodProcessed >= totalFood)
-        {
             StartCoroutine(ShowResult());
-        }
     }
 
     IEnumerator ShowResult()
@@ -137,20 +178,11 @@ public class DragDropManager : MonoBehaviour
         popup.SetActive(true);
     }
 
-    public void OnTombolSelesai()
-    {
-        LevelFlowManager.OnGameSelesai();
-    }
-
-    public void OnTombolKembali()
-    {
-        LevelFlowManager.GoToRouteMap();
-    }
-
+    public void OnTombolSelesai()  => LevelFlowManager.OnGameSelesai();
+    public void OnTombolKembali()  => LevelFlowManager.GoToRouteMap();
     public void OnTombolUlang()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
-        );
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }

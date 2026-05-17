@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 80ed4f84a35b24f4e9746d2525667a86
+guid: 42448186ccce1de49a643c8f328393c4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -444707113523441022
-    second: ASSET MBG (39)_0
-  - first:
-      213: -7977834209202995092
-    second: ASSET MBG (39)_1
+      213: -8545863818680100853
+    second: ASSET MBG - 2026-05-14T131453.971_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ASSET MBG (39)_0
+      name: ASSET MBG - 2026-05-14T131453.971_0
       rect:
         serializedVersion: 2
-        x: 297
-        y: 669
-        width: 1094
-        height: 8
+        x: 724
+        y: 147
+        width: 476
+        height: 797
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28298558c3514d9f0800000000000000
-      internalID: -444707113523441022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ASSET MBG (39)_1
-      rect:
-        serializedVersion: 2
-        x: 273
-        y: 426
-        width: 1322
-        height: 210
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c600f7b1e0a094190800000000000000
-      internalID: -7977834209202995092
+      spriteID: b0895b4822ef66980800000000000000
+      internalID: -8545863818680100853
       vertices: []
       indices: 
       edges: []
@@ -163,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ASSET MBG (39)_0: -444707113523441022
-      ASSET MBG (39)_1: -7977834209202995092
+      ASSET MBG - 2026-05-14T131453.971_0: -8545863818680100853
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
