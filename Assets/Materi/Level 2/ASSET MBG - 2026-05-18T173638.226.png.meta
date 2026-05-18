@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: 0c64ab6c4970f2049a28bfa381807e37
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4602690199854824588
+    second: ASSET MBG - 2026-05-18T173638.226_0
+  - first:
+      213: -6711858885524109613
+    second: ASSET MBG - 2026-05-18T173638.226_1
+  - first:
+      213: 4886889029067563459
+    second: ASSET MBG - 2026-05-18T173638.226_2
+  - first:
+      213: -7534945071982284224
+    second: ASSET MBG - 2026-05-18T173638.226_3
+  - first:
+      213: 8642617639279652461
+    second: ASSET MBG - 2026-05-18T173638.226_4
+  - first:
+      213: 2986211880095195534
+    second: ASSET MBG - 2026-05-18T173638.226_5
+  - first:
+      213: 3533903039019349390
+    second: ASSET MBG - 2026-05-18T173638.226_6
+  - first:
+      213: 6007984762570761929
+    second: ASSET MBG - 2026-05-18T173638.226_7
+  - first:
+      213: -8212048547321110424
+    second: ASSET MBG - 2026-05-18T173638.226_8
+  - first:
+      213: 7617237879608308818
+    second: ASSET MBG - 2026-05-18T173638.226_9
+  - first:
+      213: -4207906209093302479
+    second: ASSET MBG - 2026-05-18T173638.226_10
+  - first:
+      213: 8327998712442060042
+    second: ASSET MBG - 2026-05-18T173638.226_11
+  - first:
+      213: -1390778997482221161
+    second: ASSET MBG - 2026-05-18T173638.226_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_0
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 437
+        width: 155
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4734b7a36a5ff10c0800000000000000
+      internalID: -4602690199854824588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_1
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 437
+        width: 101
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d649c197efaad2a0800000000000000
+      internalID: -6711858885524109613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_2
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 600
+        width: 53
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c1635a1ea7b1d340800000000000000
+      internalID: 4886889029067563459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_3
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 437
+        width: 127
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0427a6ef06f7e6790800000000000000
+      internalID: -7534945071982284224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_4
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 437
+        width: 101
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6ee9cec3feb0f770800000000000000
+      internalID: 8642617639279652461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_5
+      rect:
+        serializedVersion: 2
+        x: 1394
+        y: 600
+        width: 54
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e81202122e7217920800000000000000
+      internalID: 2986211880095195534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_6
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 502
+        width: 52
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e85fb6f2712fa0130800000000000000
+      internalID: 3533903039019349390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_7
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 437
+        width: 131
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c66df45f46a06350800000000000000
+      internalID: 6007984762570761929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_8
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 437
+        width: 48
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 860a9a20b51f80e80800000000000000
+      internalID: -8212048547321110424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_9
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 498
+        width: 92
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 254f3bf5e7dd5b960800000000000000
+      internalID: 7617237879608308818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_10
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 437
+        width: 128
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13745d6e8938a95c0800000000000000
+      internalID: -4207906209093302479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_11
+      rect:
+        serializedVersion: 2
+        x: 1398
+        y: 437
+        width: 48
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0df40194bef29370800000000000000
+      internalID: 8327998712442060042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET MBG - 2026-05-18T173638.226_12
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 437
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7919ff5ded5f2bce0800000000000000
+      internalID: -1390778997482221161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ASSET MBG - 2026-05-18T173638.226_0: -4602690199854824588
+      ASSET MBG - 2026-05-18T173638.226_1: -6711858885524109613
+      ASSET MBG - 2026-05-18T173638.226_10: -4207906209093302479
+      ASSET MBG - 2026-05-18T173638.226_11: 8327998712442060042
+      ASSET MBG - 2026-05-18T173638.226_12: -1390778997482221161
+      ASSET MBG - 2026-05-18T173638.226_2: 4886889029067563459
+      ASSET MBG - 2026-05-18T173638.226_3: -7534945071982284224
+      ASSET MBG - 2026-05-18T173638.226_4: 8642617639279652461
+      ASSET MBG - 2026-05-18T173638.226_5: 2986211880095195534
+      ASSET MBG - 2026-05-18T173638.226_6: 3533903039019349390
+      ASSET MBG - 2026-05-18T173638.226_7: 6007984762570761929
+      ASSET MBG - 2026-05-18T173638.226_8: -8212048547321110424
+      ASSET MBG - 2026-05-18T173638.226_9: 7617237879608308818
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

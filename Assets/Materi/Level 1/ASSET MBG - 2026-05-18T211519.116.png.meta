@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 58576df96c5bf864188609ab3f822c93
+guid: 59dc9a2eadd4baa4eab79ad450fbaec7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8843840312205958421
-    second: ASSET MBG (29)_0
+      213: -6558896018727255265
+    second: ASSET MBG - 2026-05-18T211519.116_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ASSET MBG (29)_0
+      name: ASSET MBG - 2026-05-18T211519.116_0
       rect:
         serializedVersion: 2
-        x: 498
-        y: 897
-        width: 2658
-        height: 273
+        x: 658
+        y: 160
+        width: 617
+        height: 773
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be22facb71e544580800000000000000
-      internalID: -8843840312205958421
+      spriteID: f13c90d42de1af4a0800000000000000
+      internalID: -6558896018727255265
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ASSET MBG (29)_0: -8843840312205958421
+      ASSET MBG - 2026-05-18T211519.116_0: -6558896018727255265
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
