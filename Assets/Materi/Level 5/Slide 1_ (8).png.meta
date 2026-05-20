@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 35f5be49d5c7f454195c0e5e2d4be105
+guid: cbb3ce26f33ee524a90a298857ada3ca
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1058887818480903515
-    second: ICON MAKANAN (3)_0
-  - first:
-      213: 2306563515644137028
-    second: ICON MAKANAN (3)_1
-  - first:
-      213: 8000652324941105092
-    second: ICON MAKANAN (3)_2
-  - first:
-      213: 6513202762196990912
-    second: ICON MAKANAN (3)_3
-  - first:
-      213: 441754391645268211
-    second: ICON MAKANAN (3)_4
+      213: 3608695625442047086
+    second: Slide 1_ (8)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -125,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ICON MAKANAN (3)_0
+      name: Slide 1_ (8)_0
       rect:
         serializedVersion: 2
-        x: 404
-        y: 97
-        width: 1132
-        height: 835
+        x: 731
+        y: 507
+        width: 258
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,96 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b55ea855cdce1be00800000000000000
-      internalID: 1058887818480903515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ICON MAKANAN (3)_1
-      rect:
-        serializedVersion: 2
-        x: 934
-        y: 923
-        width: 29
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 44e48d9fb4f820020800000000000000
-      internalID: 2306563515644137028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ICON MAKANAN (3)_2
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 625
-        width: 13
-        height: 78
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4c7848776e6080f60800000000000000
-      internalID: 8000652324941105092
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ICON MAKANAN (3)_3
-      rect:
-        serializedVersion: 2
-        x: 818
-        y: 104
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0cb38de576b836a50800000000000000
-      internalID: 6513202762196990912
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ICON MAKANAN (3)_4
-      rect:
-        serializedVersion: 2
-        x: 1125
-        y: 104
-        width: 12
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3f82cf7574d612600800000000000000
-      internalID: 441754391645268211
+      spriteID: e64baf83d89a41230800000000000000
+      internalID: 3608695625442047086
       vertices: []
       indices: 
       edges: []
@@ -248,11 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ICON MAKANAN (3)_0: 1058887818480903515
-      ICON MAKANAN (3)_1: 2306563515644137028
-      ICON MAKANAN (3)_2: 8000652324941105092
-      ICON MAKANAN (3)_3: 6513202762196990912
-      ICON MAKANAN (3)_4: 441754391645268211
+      Slide 1_ (8)_0: 3608695625442047086
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07c832e813b4e240b55f0fa4ce876f3, type: 3}
+  m_Name: JusAman
+  m_EditorClassIdentifier: Assembly-CSharp::FoodItemData
+  namaItem: Jus
+  spriteNormal: {fileID: -2170320515830119622, guid: 40cd89c82f48c71419779ac1429a7ef1, type: 3}
+  spriteXRay: {fileID: -2170320515830119622, guid: 40cd89c82f48c71419779ac1429a7ef1, type: 3}
+  isAman: 1
+  keterangan: 

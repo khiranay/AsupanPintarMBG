@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 48c22ef84f935584e949313d5e2a0620
+guid: 7d9e9c52c3a6bb1408c9997ab6b02188
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8160485313875109153
-    second: ICON MAKANAN (5)_0
+      213: -920082993598137315
+    second: Slide 1_ (6)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ICON MAKANAN (5)_0
+      name: Slide 1_ (6)_0
       rect:
         serializedVersion: 2
-        x: 838
-        y: 480
-        width: 244
-        height: 133
+        x: 373
+        y: 491
+        width: 1174
+        height: 98
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1256158282edf3170800000000000000
-      internalID: 8160485313875109153
+      spriteID: d1c74b264653b33f0800000000000000
+      internalID: -920082993598137315
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ICON MAKANAN (5)_0: 8160485313875109153
+      Slide 1_ (6)_0: -920082993598137315
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
