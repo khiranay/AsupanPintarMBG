@@ -4,7 +4,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SnakeGameManager : MonoBehaviour
+public class SnakeGameManager : MonoBehaviour, IGameManager
 {
     [Header("Grid")]
     public int   gridWidth   = 8;
@@ -41,6 +41,8 @@ public class SnakeGameManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI teksSkor;
     public int             targetSkor = 100;
+    [Tooltip("TextMeshProUGUI untuk tampilan 3-2-1-GO! (opsional)")]
+    public TextMeshProUGUI teksCountdown;
     public GameObject      floatingTextPrefab; // Prefab UI Text untuk efek skor melayang
     public GameObject      popupHasil;
     public TextMeshProUGUI teksHasilSkor;
@@ -103,14 +105,18 @@ public class SnakeGameManager : MonoBehaviour
 
     public void MulaiGame()
     {
-        Time.timeScale = 1f; // Pastikan waktu berjalan (jaga-jaga jika ter-pause dari scene lain)
+        Time.timeScale = 1f;
         if (popupPerintah != null) popupPerintah.SetActive(false);
-        InitPlayerSnake();
-        SpawnSemuaFood();
-        if (aktifkanUlarMusuh) InitEnemySnake();
-        isPlaying = true;
-        StartCoroutine(PlayerLoop());
-        if (aktifkanUlarMusuh) StartCoroutine(EnemyLoop());
+
+        StartCoroutine(CountdownHelper.Hitung(teksCountdown, () =>
+        {
+            InitPlayerSnake();
+            SpawnSemuaFood();
+            if (aktifkanUlarMusuh) InitEnemySnake();
+            isPlaying = true;
+            StartCoroutine(PlayerLoop());
+            if (aktifkanUlarMusuh) StartCoroutine(EnemyLoop());
+        }));
     }
 
     HashSet<Vector2Int> GetOccupiedCells()
@@ -161,13 +167,34 @@ public class SnakeGameManager : MonoBehaviour
 
     void SpawnFoodDiCell(Vector2Int pos)
     {
-        if (daftarMakanan == null || daftarMakanan.Length == 0) return;
+        if (daftarMakanan == null || daftarMakanan.Length == 0)
+        {
+            Debug.LogError("[SnakeGame] daftarMakanan kosong! Assign FoodItemDataLv5 di Inspector.");
+            return;
+        }
+
+        if (foodPrefab == null)
+        {
+            Debug.LogError("[SnakeGame] foodPrefab kosong! Assign prefab makanan di Inspector.");
+            return;
+        }
+
         FoodItemDataLv5 data = daftarMakanan[Random.Range(0, daftarMakanan.Length)];
-        GameObject obj       = Instantiate(foodPrefab, gridContainer);
-        obj.GetComponent<FoodItemLv5>().Setup(data);
+        GameObject obj = Instantiate(foodPrefab, gridContainer);
+
+        FoodItemLv5 foodComp = obj.GetComponent<FoodItemLv5>();
+        if (foodComp == null)
+        {
+            Debug.LogError($"[SnakeGame] Prefab '{foodPrefab.name}' tidak punya komponen FoodItemLv5! " +
+                           "Tambahkan script FoodItemLv5 ke prefab makanan.");
+            Destroy(obj);
+            return;
+        }
+
+        foodComp.Setup(data);
         SetUIPosition(obj.GetComponent<RectTransform>(), pos);
         foodObjects[pos] = obj;
-        foodData[pos]    = data;
+        foodData[pos] = data;
     }
 
     void InitPlayerSnake()
@@ -585,8 +612,18 @@ public class SnakeGameManager : MonoBehaviour
 
     void SetUIPosition(RectTransform rect, Vector2Int pos)
     {
-        rect.anchoredPosition = new Vector2(pos.x * cellSize, pos.y * cellSize);
+        // Paksa anchor ke titik tetap (bukan stretch) agar sizeDelta = ukuran aktual.
+        // Tanpa ini, prefab dengan anchor stretch akan muncul sangat besar karena
+        // sizeDelta pada stretch berarti "offset dari tepi parent", bukan "ukuran".
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.zero;
+        rect.pivot     = new Vector2(0.5f, 0.5f);
+
         rect.sizeDelta        = new Vector2(cellSize, cellSize);
+        rect.anchoredPosition = new Vector2(
+            pos.x * cellSize + cellSize * 0.5f,
+            pos.y * cellSize + cellSize * 0.5f
+        );
     }
 }
 

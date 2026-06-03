@@ -2,28 +2,32 @@ using UnityEngine;
 
 public class GameLevelManager : MonoBehaviour
 {
+    [Header("Panel Game per Level (index 0 = Level 1, dst.)")]
     public GameObject[] gameLevelPanels;
 
-    [Header("Popup Perintah")]
-    public GameObject popupPerintah;
+    [Header("Popup Perintah per Level (index 0 = Level 1, dst.)")]
     public GameObject[] popupPerLevel;
 
-    [Header("Game Manager Per Level")]
-    public WhackAMoleManager[] whackAMoleManagers;
+    /// <summary>
+    /// Game Manager per level — drag komponen game manager (WhackAMoleManager,
+    /// DragDropManager, XRayGameManager, SnakeGameManager, dst.) ke slot yang sesuai.
+    /// Index 0 = Level 1, index 1 = Level 2, dst.
+    /// Semua game manager harus mengimplementasi interface IGameManager.
+    /// </summary>
+    [Header("Game Manager per Level (implementasi IGameManager)")]
+    public MonoBehaviour[] gameManagers;
 
     private int currentLevel;
 
     void Start()
     {
         currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
-        Debug.Log("CurrentLevel: " + currentLevel);
 
         foreach (var panel in gameLevelPanels)
         {
-            panel.SetActive(false);
+            if (panel != null) panel.SetActive(false);
         }
 
-        Debug.Log("Memanggil TampilkanPopupPerintah");
         TampilkanPopupPerintah();
     }
 
@@ -31,37 +35,57 @@ public class GameLevelManager : MonoBehaviour
     {
         for (int i = 0; i < popupPerLevel.Length; i++)
         {
-            popupPerLevel[i].SetActive(false);
+            if (popupPerLevel[i] != null)
+                popupPerLevel[i].SetActive(false);
         }
 
         int index = currentLevel - 1;
 
-        if (index >= 0 && index < popupPerLevel.Length)
-        {
-            // Aktifkan parent (GameLevel) dulu
+        if (index >= 0 && index < gameLevelPanels.Length && gameLevelPanels[index] != null)
             gameLevelPanels[index].SetActive(true);
 
-            // Baru aktifkan popup
+        if (index >= 0 && index < popupPerLevel.Length && popupPerLevel[index] != null)
             popupPerLevel[index].SetActive(true);
-        }
     }
 
-    // Assign ke tombol X di popup perintah
+    /// <summary>
+    /// Assign ke tombol "Mulai / X" di popup perintah setiap level.
+    /// Menutup popup lalu memanggil MulaiGame() pada game manager level ini.
+    /// </summary>
     public void OnTombolTutupPopup()
     {
-        // Tutup popup
+        Debug.Log($"[GameLevelManager] OnTombolTutupPopup dipanggil. currentLevel={currentLevel}");
+
+        // Tutup semua popup perintah
         foreach (var popup in popupPerLevel)
         {
-            popup.SetActive(false);
+            if (popup != null) popup.SetActive(false);
         }
 
         int index = currentLevel - 1;
 
-        // Panggil MulaiGame() jika level ini pakai WhackAMole
-        if (index >= 0 && index < whackAMoleManagers.Length
-            && whackAMoleManagers[index] != null)
+        Debug.Log($"[GameLevelManager] gameManagers.Length={gameManagers.Length}, index={index}");
+
+        // Panggil MulaiGame() lewat interface IGameManager
+        if (index >= 0 && index < gameManagers.Length && gameManagers[index] != null)
         {
-            whackAMoleManagers[index].MulaiGame();
+            Debug.Log($"[GameLevelManager] Memanggil MulaiGame() pada {gameManagers[index].GetType().Name}");
+            if (gameManagers[index] is IGameManager mgr)
+            {
+                mgr.MulaiGame();
+            }
+            else
+            {
+                Debug.LogError(
+                    $"[GameLevelManager] gameManagers[{index}] ({gameManagers[index].GetType().Name}) " +
+                    "tidak mengimplementasi IGameManager!");
+            }
+        }
+        else
+        {
+            Debug.LogError(
+                $"[GameLevelManager] gameManagers[{index}] kosong atau tidak ada! " +
+                $"Pastikan slot index {index} sudah di-assign di Inspector.");
         }
     }
 }

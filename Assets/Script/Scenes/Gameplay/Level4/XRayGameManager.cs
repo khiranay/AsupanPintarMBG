@@ -4,7 +4,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
-public class XRayGameManager : MonoBehaviour
+public class XRayGameManager : MonoBehaviour, IGameManager
 {
     [Header("Item Data")]
     public FoodItemData[] semuaItem;
@@ -32,6 +32,8 @@ public class XRayGameManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI teksSkor;
     public TextMeshProUGUI teksTimer;
+    [Tooltip("TextMeshProUGUI untuk tampilan 3-2-1-GO! (opsional)")]
+    public TextMeshProUGUI teksCountdown;
     public int totalItem = 10;
     public float gameDuration = 60f;
 
@@ -73,8 +75,11 @@ public class XRayGameManager : MonoBehaviour
     // Dipanggil dari tombol X di popup perintah
     public void MulaiGame()
     {
-        GenerateItemQueue();
-        StartCoroutine(RunGame());
+        StartCoroutine(CountdownHelper.Hitung(teksCountdown, () =>
+        {
+            GenerateItemQueue();
+            StartCoroutine(RunGame());
+        }));
     }
 
     void Update()

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections.Generic;
 
-public class SpotTheDifference : MonoBehaviour
+public class SpotTheDifference : MonoBehaviour, IGameManager
 {
     [Header("Gambar")]
     public Image imageBComponent;
@@ -15,6 +15,8 @@ public class SpotTheDifference : MonoBehaviour
     [Header("UI")]
     public GameObject highlightPrefab;
     public Transform highlightParent;
+    [Tooltip("TextMeshProUGUI untuk tampilan 3-2-1-GO! (opsional)")]
+    public TextMeshProUGUI teksCountdown;
 
     [Header("Popup Hasil")]
     public GameObject popup;
@@ -25,6 +27,16 @@ public class SpotTheDifference : MonoBehaviour
     private List<bool> foundList = new List<bool>();
     private int jumlahBenar = 0;
     private int jumlahSalah = 0;
+
+    // true setelah countdown selesai — klik baru diterima
+    private bool gameActive = false;
+
+    // Implementasi IGameManager — mulai countdown lalu aktifkan interaksi
+    public void MulaiGame()
+    {
+        gameActive = false;
+        StartCoroutine(CountdownHelper.Hitung(teksCountdown, () => gameActive = true));
+    }
 
     void Start()
     {
@@ -38,6 +50,7 @@ public class SpotTheDifference : MonoBehaviour
 
     public void OnClickImageB(PointerEventData pointerData)
     {
+        if (!gameActive) return;   // abaikan klik sebelum countdown selesai
         Vector2 screenPos = pointerData.position;
         CheckClick(screenPos);
     }

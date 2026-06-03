@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class WhackAMoleManager : MonoBehaviour
+public class WhackAMoleManager : MonoBehaviour, IGameManager
 {
     [Header("Moles")]
     public Mole[] holes;
@@ -46,31 +46,12 @@ public class WhackAMoleManager : MonoBehaviour
     // Dipanggil dari GameLevelManager.OnTombolMulai()
     public void MulaiGame()
     {
-        StartCoroutine(CountdownMulai());
-    }
-
-    IEnumerator CountdownMulai()
-    {
-        teksCountdown.gameObject.SetActive(true);
-
-        teksCountdown.text = "3";
-        yield return new WaitForSeconds(1f);
-
-        teksCountdown.text = "2";
-        yield return new WaitForSeconds(1f);
-
-        teksCountdown.text = "1";
-        yield return new WaitForSeconds(1f);
-
-        teksCountdown.text = "GO!";
-        yield return new WaitForSeconds(0.5f);
-
-        teksCountdown.gameObject.SetActive(false);
-
-        // Baru mulai game
-        isPlaying = true;
-        StartCoroutine(SpawnMoles());
-        StartCoroutine(Countdown());
+        StartCoroutine(CountdownHelper.Hitung(teksCountdown, () =>
+        {
+            isPlaying = true;
+            StartCoroutine(SpawnMoles());
+            StartCoroutine(Countdown());
+        }));
     }
 
     IEnumerator SpawnMoles()

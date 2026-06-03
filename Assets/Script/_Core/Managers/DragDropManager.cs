@@ -4,7 +4,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DragDropManager : MonoBehaviour
+public class DragDropManager : MonoBehaviour, IGameManager
 {
     [Header("Spawn")]
     public GameObject[] foodPrefabs;
@@ -22,6 +22,10 @@ public class DragDropManager : MonoBehaviour
     [Header("Popup Perintah (Instruksi)")]
     [Tooltip("Assign popup instruksi 'Match It' di sini")]
     public GameObject popupPerintah;
+
+    [Header("Countdown")]
+    [Tooltip("TextMeshProUGUI untuk tampilan 3-2-1-GO! (opsional)")]
+    public TextMeshProUGUI teksCountdown;
 
     [Header("Popup Hasil")]
     public GameObject popup;
@@ -48,17 +52,8 @@ public class DragDropManager : MonoBehaviour
         if (scoreText != null)
             scoreText.text = "0";
 
-        // Tampilkan popup perintah, game BELUM mulai
-        if (popupPerintah != null)
-        {
-            popupPerintah.SetActive(true);
-            gameStarted = false;
-        }
-        else
-        {
-            // Tidak ada popup → langsung mulai
-            StartGame();
-        }
+        // Game TIDAK langsung mulai — menunggu MulaiGame() dipanggil oleh GameLevelManager
+        gameStarted = false;
     }
 
     void Update()
@@ -96,12 +91,15 @@ public class DragDropManager : MonoBehaviour
     /// Dipanggil oleh tombol "Tutup / Mulai" di popup perintah.
     /// Assign ke OnClick() tombol X / Mulai di popup instruksi.
     /// </summary>
+    // Implementasi IGameManager — dipanggil oleh GameLevelManager
+    public void MulaiGame() => OnTutupPopupPerintah();
+
     public void OnTutupPopupPerintah()
     {
         if (popupPerintah != null)
             popupPerintah.SetActive(false);
 
-        StartGame();
+        StartCoroutine(CountdownHelper.Hitung(teksCountdown, StartGame));
     }
 
     private void StartGame()
