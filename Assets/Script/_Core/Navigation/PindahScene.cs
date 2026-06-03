@@ -9,6 +9,6 @@ public class ScenePindah : MonoBehaviour
     public void Pindah()
     {
         Debug.Log("[ScenePindah] Pindah ke: " + namaScene);
-        SceneManager.LoadScene(namaScene);
+        SceneLoader.LoadScene(namaScene);
     }
 }

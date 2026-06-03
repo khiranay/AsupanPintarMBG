@@ -9,6 +9,6 @@ public class HomeButton : MonoBehaviour
     public void OnTombolHomediklik()
     {
         Debug.Log("[HomeButton] Kembali ke Home: " + namaSceneHome);
-        SceneManager.LoadScene(namaSceneHome);
+        SceneLoader.LoadScene(namaSceneHome);
     }
 }

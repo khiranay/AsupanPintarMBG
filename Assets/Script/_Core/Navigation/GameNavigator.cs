@@ -21,11 +21,21 @@ public class GameNavigator : MonoBehaviour
     private void ShowGameForLevel(int level)
     {
         int index = level - 1;
+        bool panelDitemukan = false;
+
         for (int i = 0; i < gamePanels.Length; i++)
         {
             if (gamePanels[i] != null)
+            {
                 gamePanels[i].SetActive(i == index);
+                if (i == index) panelDitemukan = true;
+            }
         }
+
+        if (!panelDitemukan)
+            Debug.LogError(
+                $"[GameNavigator] Tidak ada panel game untuk Level {level}! " +
+                $"Pastikan gamePanels[{index}] sudah di-assign di Inspector.");
     }
 
     /// <summary>

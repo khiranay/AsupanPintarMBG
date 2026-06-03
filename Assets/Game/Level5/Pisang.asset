@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0c55de7be616843b88fdaa007dea9b, type: 3}
+  m_Name: Pisang
+  m_EditorClassIdentifier: Assembly-CSharp::FoodItemDataLv5
+  namaItem: Pisang
+  spriteItem: {fileID: -6025013090271308882, guid: 896f2c03daac1dd47bcb8657718baef4, type: 3}
+  isSegar: 0
+  keterangan: 

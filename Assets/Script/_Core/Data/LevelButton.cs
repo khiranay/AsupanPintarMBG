@@ -58,12 +58,12 @@ public class LevelButton : MonoBehaviour
     }
 
     // Assign ke tombol OnClick
-    
     public void OnLevelClicked()
     {
         if (!IsLevelUnlocked()) return;
 
         PlayerPrefs.SetInt("CurrentLevel", levelIndex);
-        SceneManager.LoadScene("Materi");
+        // BUG FIX #5: Pakai konstanta dari LevelFlowManager, bukan hardcode string
+        SceneLoader.LoadScene(LevelFlowManager.MateriScene);
     }
 }

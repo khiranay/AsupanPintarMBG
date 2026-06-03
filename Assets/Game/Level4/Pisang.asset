@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c07c832e813b4e240b55f0fa4ce876f3, type: 3}
-  m_Name: Chips
+  m_Name: Pisang
   m_EditorClassIdentifier: Assembly-CSharp::FoodItemData
-  namaItem: Chips
-  spriteNormal: {fileID: 2680374978771116027, guid: 419044e13d159ea4fb162cf5239ec5e7, type: 3}
-  spriteXRay: {fileID: 1297168810669908782, guid: 8f20d870794dec445849f881e295f35b, type: 3}
+  namaItem: Pisang
+  spriteNormal: {fileID: 5230058077631023257, guid: 76c91137d4590724d9c85aba186d18a3, type: 3}
+  spriteXRay: {fileID: -6025013090271308882, guid: 896f2c03daac1dd47bcb8657718baef4, type: 3}
   isAman: 0
   keterangan: 

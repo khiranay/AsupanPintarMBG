@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 /// Static manager untuk alur: Materi → Kuis → Game → RouteMap.
 /// Tidak perlu di-attach ke GameObject manapun (static utility).
 /// Bisa dipanggil dari scene Kuis maupun Game.
+/// Semua perpindahan scene dilakukan via SceneLoader (async)
+/// agar tidak ada freeze saat loading.
 /// </summary>
 public static class LevelFlowManager
 {
@@ -23,17 +25,28 @@ public static class LevelFlowManager
     /// </summary>
     public static void OnKuisSelesai()
     {
-        SceneManager.LoadScene(GameScene);
+        SceneLoader.LoadScene(GameScene);
     }
 
     // ─── Dipanggil dari tombol Next / selesai di scene Game ──────────
     /// <summary>
-    /// Game selesai → kembali ke RouteMap.
+    /// Game selesai → simpan bintang 3 → kembali ke RouteMap.
+    /// Ini adalah satu-satunya tempat yang bertanggung jawab menyimpan
+    /// bintang 3. Tiap game manager TIDAK perlu memanggil CompleteMiniGame
+    /// sendiri karena OnGameSelesai sudah menanganinya di sini.
     /// </summary>
     public static void OnGameSelesai()
     {
-        // Tandai level ini sudah selesai (opsional, untuk unlock di RouteMap)
         int level = PlayerPrefs.GetInt(KeyCurrentLevel, 1);
+
+        // ROOT CAUSE FIX: Simpan bintang 3 di sini.
+        // Sebelumnya CompleteMiniGame hanya dipanggil di dalam masing-masing
+        // game manager (GameOver), tapi jika tombol Selesai di-wire langsung
+        // ke OnGameSelesai tanpa melewati game manager, bintang tidak pernah
+        // tersimpan dan tetap stuck di 2 (dari Kuis).
+        LevelProgressManager.CompleteMiniGame(level);
+
+        // Unlock level berikutnya di RouteMap
         int highestUnlocked = PlayerPrefs.GetInt("HighestUnlocked", 1);
         if (level >= highestUnlocked)
         {
@@ -47,7 +60,7 @@ public static class LevelFlowManager
     // ─── Navigasi umum ────────────────────────────────────────────────
     public static void GoToRouteMap()
     {
-        SceneManager.LoadScene(RouteMapScene);
+        SceneLoader.LoadScene(RouteMapScene);
     }
 
     // ─── Helper: baca level saat ini ─────────────────────────────────

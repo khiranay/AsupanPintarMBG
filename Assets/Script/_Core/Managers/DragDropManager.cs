@@ -182,7 +182,7 @@ public class DragDropManager : MonoBehaviour
     public void OnTombolKembali()  => LevelFlowManager.GoToRouteMap();
     public void OnTombolUlang()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(
+        SceneLoader.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }

@@ -16,6 +16,10 @@ public class WhackAMoleManager : MonoBehaviour
     [Header("Weighted Spawn")]
     public float[] spawnWeights = { 40f, 30f, 20f, 10f };
 
+    // BUG FIX #8: Array pre-alokasi untuk hindari GC di SpawnMoles()
+    private static readonly float[] WeightsFase1 = { 40f, 30f, 20f, 10f };
+    private static readonly float[] WeightsFase2 = { 25f, 25f, 25f, 25f };
+
     [Header("UI")]
     public TextMeshProUGUI teksSkor;
     public TextMeshProUGUI teksWaktu;
@@ -75,21 +79,22 @@ public class WhackAMoleManager : MonoBehaviour
         {
             float timeRatio = timeLeft / gameDuration;
 
+            // BUG FIX #8: Pakai array yang sudah pre-alokasi, bukan new float[] setiap frame
             if (timeRatio > 0.5f)
             {
-                spawnWeights = new float[] { 40f, 30f, 20f, 10f };
+                spawnWeights  = WeightsFase1;
                 spawnInterval = 0.8f;
                 moleVisibleTime = 1.2f;
             }
             else if (timeRatio > 0.25f)
             {
-                spawnWeights = new float[] { 25f, 25f, 25f, 25f };
+                spawnWeights  = WeightsFase2;
                 spawnInterval = 0.6f;
                 moleVisibleTime = 1.0f;
             }
             else
             {
-                spawnWeights = new float[] { 25f, 25f, 25f, 25f };
+                spawnWeights  = WeightsFase2;
                 spawnInterval = 0.4f;
                 moleVisibleTime = 0.8f;
             }
@@ -169,8 +174,7 @@ public class WhackAMoleManager : MonoBehaviour
 
     public void OnTombolUlang()
     {
-        UnityEngine.SceneManagement.SceneManager
-            .LoadScene(UnityEngine.SceneManagement.SceneManager
-            .GetActiveScene().name);
+        SceneLoader.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }

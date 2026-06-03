@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c07c832e813b4e240b55f0fa4ce876f3, type: 3}
-  m_Name: Susu
+  m_Name: Kue
   m_EditorClassIdentifier: Assembly-CSharp::FoodItemData
-  namaItem: Susu
-  spriteNormal: {fileID: -7106293687493349623, guid: e156b466edd28a04ca5ae192c288bf32, type: 3}
-  spriteXRay: {fileID: 0}
+  namaItem: Kue
+  spriteNormal: {fileID: 2215439861058442318, guid: c52fe5a44c6a4e24b8d546036402a668, type: 3}
+  spriteXRay: {fileID: -5406355152742160043, guid: 4570191e469b93a4aad2c8ea348438eb, type: 3}
   isAman: 0
   keterangan: 

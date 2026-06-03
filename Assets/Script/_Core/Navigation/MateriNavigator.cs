@@ -87,6 +87,6 @@ public class MateriNavigator : MonoBehaviour
         LevelProgressManager.CompleteMateri(levelNumber);
 
         // Pindah ke scene Kuis
-        SceneManager.LoadScene(LevelFlowManager.KuisScene);
+        SceneLoader.LoadScene(LevelFlowManager.KuisScene);
     }
 }
