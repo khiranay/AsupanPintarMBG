@@ -5336,12 +5336,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617198081}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4715a55742aac2c419821e82347c70c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestLevel
-  testLevel: 1
+  testLevel: 0
 --- !u!1 &619370721
 GameObject:
   m_ObjectHideFlags: 0
@@ -6275,7 +6275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8877074448982370336, guid: 9cbc9d63f386b424391cab3750203519, type: 3}
+  m_Sprite: {fileID: -5735151813322102090, guid: abd3ead5079e0834781c8b215d389dc5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9597,7 +9597,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5608254072493482205, guid: e18a74878ade6ff448dc2600336422b1, type: 3}
+  m_Sprite: {fileID: 976911208346301237, guid: fd9723304c92cb34b85ffbe64a5750c1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
