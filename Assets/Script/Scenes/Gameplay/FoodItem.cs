@@ -8,7 +8,7 @@ public class FoodItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public bool isLayak;            // centang jika makanan layak
     public string foodName;
     public bool isDragging = false;
-
+    [HideInInspector] public bool wasDropped = false; // true saat berhasil di-drop ke area
 
     private RectTransform rectTransform;
     private Canvas canvas;
@@ -39,9 +39,9 @@ public class FoodItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     // Simpan world position sebelum pindah parent
     Vector3 worldPos = rectTransform.position;
-    
+
     transform.SetParent(canvas.transform);
-    
+
     // Restore world position setelah pindah parent agar tidak lompat
     rectTransform.position = worldPos;
 }
@@ -52,16 +52,19 @@ public class FoodItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
 
     public void OnEndDrag(PointerEventData eventData)
-{
-    isDragging = false;  // ← tambahkan ini
-    canvasGroup.blocksRaycasts = true;
-    ReturnToOrigin();
-}
+    {
+        isDragging = false;
+        canvasGroup.blocksRaycasts = true;
+
+        // Hanya kembali ke posisi asal jika TIDAK berhasil di-drop ke area
+        if (!wasDropped)
+            ReturnToOrigin();
+    }
 
     public void ReturnToOrigin()
     {
         transform.SetParent(originalParent);
         rectTransform.anchoredPosition = originalPosition;
     }
-    
+
 }

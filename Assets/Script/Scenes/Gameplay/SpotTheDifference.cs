@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 
 public class SpotTheDifference : MonoBehaviour, IGameManager
@@ -12,11 +13,15 @@ public class SpotTheDifference : MonoBehaviour, IGameManager
     [Header("Area Perbedaan (Manual)")]
     public List<RectTransform> differenceAreas;
 
-    [Header("UI")]
+    [Header("UI Game")]
     public GameObject highlightPrefab;
     public Transform highlightParent;
+
+    [Header("UI Timer & Countdown")]
     [Tooltip("TextMeshProUGUI untuk tampilan 3-2-1-GO! (opsional)")]
     public TextMeshProUGUI teksCountdown;
+    [Tooltip("TextMeshProUGUI untuk tampilan waktu tersisa (format MM:SS)")]
+    public TextMeshProUGUI teksWaktu;
 
     [Header("Popup Hasil")]
     public GameObject popup;
@@ -28,14 +33,20 @@ public class SpotTheDifference : MonoBehaviour, IGameManager
     private int jumlahBenar = 0;
     private int jumlahSalah = 0;
 
-    // true setelah countdown selesai — klik baru diterima
-    private bool gameActive = false;
+    // Timer
+    private float timeLeft = 30f;
+    private bool gameActive = false;  // true setelah countdown selesai
 
     // Implementasi IGameManager — mulai countdown lalu aktifkan interaksi
     public void MulaiGame()
     {
         gameActive = false;
-        StartCoroutine(CountdownHelper.Hitung(teksCountdown, () => gameActive = true));
+        timeLeft = 30f;
+        StartCoroutine(CountdownHelper.Hitung(teksCountdown, () =>
+        {
+            gameActive = true;
+            StartCoroutine(TimerCountdown());
+        }));
     }
 
     void Start()
@@ -46,6 +57,8 @@ public class SpotTheDifference : MonoBehaviour, IGameManager
 
         if (popup != null)
             popup.SetActive(false);
+
+        UpdateTimerUI();
     }
 
     public void OnClickImageB(PointerEventData pointerData)
@@ -111,14 +124,48 @@ public class SpotTheDifference : MonoBehaviour, IGameManager
         foreach (bool found in foundList)
             if (!found) return;
 
-        TampilkanPopup();
+        // Semua perbedaan ditemukan → menang!
+        gameActive = false;
+        StopAllCoroutines();
+        TampilkanPopup(true);
     }
 
-    void TampilkanPopup()
+    IEnumerator TimerCountdown()
     {
-        // Isi teks skor
+        while (timeLeft > 0 && gameActive)
+        {
+            timeLeft -= Time.deltaTime;
+            UpdateTimerUI();
+            yield return null;
+        }
+
+        // Waktu habis
+        if (gameActive)
+        {
+            gameActive = false;
+            TampilkanPopup(false);
+        }
+    }
+
+    void UpdateTimerUI()
+    {
+        if (teksWaktu != null)
+        {
+            int detik = Mathf.CeilToInt(Mathf.Max(0f, timeLeft));
+            teksWaktu.text = string.Format("{0:00}:{1:00}", detik / 60, detik % 60);
+        }
+    }
+
+    void TampilkanPopup(bool menang)
+    {
+        // Isi teks hasil
         if (teksHasil != null)
-            teksHasil.text = jumlahBenar + "/" + differenceAreas.Count;
+        {
+            if (menang)
+                teksHasil.text = "BERHASIL!";
+            else
+                teksHasil.text = "WAKTU HABIS!";
+        }
 
         if (teksBenar != null)
             teksBenar.text = jumlahBenar.ToString();
@@ -151,6 +198,7 @@ public class SpotTheDifference : MonoBehaviour, IGameManager
     {
         jumlahBenar = 0;
         jumlahSalah = 0;
+        timeLeft = 30f;
 
         foundList.Clear();
         foreach (var area in differenceAreas)
@@ -162,6 +210,9 @@ public class SpotTheDifference : MonoBehaviour, IGameManager
 
         if (popup != null)
             popup.SetActive(false);
+
+        // Mulai ulang game
+        MulaiGame();
     }
 
     /// <summary>

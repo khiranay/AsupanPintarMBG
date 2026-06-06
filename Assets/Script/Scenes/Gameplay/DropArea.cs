@@ -13,6 +13,9 @@ public class DropArea : MonoBehaviour, IDropHandler
         FoodItem food = eventData.pointerDrag.GetComponent<FoodItem>();
         if (food == null) return;
 
+        // Tandai sudah di-drop agar OnEndDrag tidak balik ke posisi asal
+        food.wasDropped = true;
+
         bool isBenar = (isAmanArea && food.isLayak) || (!isAmanArea && !food.isLayak);
 
         gameManager.OnFoodDropped(food, isBenar, transform);

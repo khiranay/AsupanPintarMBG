@@ -2576,41 +2576,34 @@ MonoBehaviour:
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 1
-    pertanyaan: Berapa lama maksimal makanan boleh berada di luar sebelum basi?
+    pertanyaan: Apa yang membuat makanan cepat basi?
     pilihanJawaban:
-    - 30 detik
-    - 4 Jam
-    - '1 Minggu '
+    - Penyimpanannya benar
+    - Bahan sudah kadaluwarsa
+    - Wadahnya bersih dan tertutup
     indexJawabanBenar: 1
-    penjelasanBenar: 'Makanan yang lama di luar bisa cepat rusak.
+    penjelasanBenar: "Bahan yang sudah kadaluwarsa sudah banyak \nkuman sehingga
+      makanan cepat busuk."
+    penjelasanSalah: 'Makanan yang disimpan dengan benar dan
 
-      Kuman bisa
-      tumbuh di makanan.
-
-      Jadi jangan dimakan kalau sudah terlalu lama ya!'
-    penjelasanSalah: 'Makanan tidak boleh dibiarkan terlalu lama.
-
-      Nanti bisa
-      basi dan bikin sakit.
-
-      Ingat ya, jangan tunggu lama-lama!'
+      wadahnya sudah
+      tertutup rapat membuat makanan lebih awet.'
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 2
-    pertanyaan: Apa yang harus kamu lakukan jika melihat satu titik jamur kecil di
-      ujung roti?
+    pertanyaan: Apa yang harus kamu lakukan jika melihat jamur kecil di makanan?
     pilihanJawaban:
     - Mencucinya dengan air sampai bersih
-    - Membuang seluruh roti ke tempat sampah
+    - Membuang seluruh makanan ke tempat sampah
     - Memberikannya ke hewan peliharaan
     indexJawabanBenar: 1
-    penjelasanBenar: 'Roti yang ada jamurnya harus dibuang semua.
+    penjelasanBenar: 'Makanan yang ada jamurnya harus dibuang semua.
 
-      Jamur bisa
-      menyebar walaupun tidak terlihat.
+      Jamur
+      bisa menyebar walaupun tidak terlihat.
 
       Kamu sudah memilih yang aman!'
-    penjelasanSalah: 'Jamur di roti tidak bisa dibersihkan.
+    penjelasanSalah: 'Jamur di makanan tidak bisa dibersihkan.
 
       Kalau dimakan
       bisa bikin sakit.
@@ -2640,55 +2633,46 @@ MonoBehaviour:
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 4
-    pertanyaan: Kalau kamu ragu makanan itu masih enak atau tidak, apa yang harus
-      kamu cek?
+    pertanyaan: Bagaimana ciri makanan yang terlihat meragukan?
     pilihanJawaban:
-    - Cek harganya, yang mahal pasti bagus
-    - Cek siapa yang beli makanannya
-    - Cek Bau, Cek Tekstur, dan Cek Warna
+    - Bersih dan terlihat enak
+    - Aroma khas makanan yang menggoda
+    - Wadah kotor / terbuka
     indexJawabanBenar: 2
-    penjelasanBenar: 'Kita harus cek bau, warna, dan tekstur makanan.
-
-      Kalau
-      aneh, jangan dimakan.
-
-      Kamu sudah benar!'
-    penjelasanSalah: 'Harga atau teman tidak menentukan makanan aman.
-
-      Kita
-      harus cek bau, warna, dan teksturnya.
-
-      Ingat ya!'
+    penjelasanBenar: "Wadah kotor dan terbuka mengundang bakteri \nmasuk ke dalam
+      makanan sehingga meragukan \ndan tidak layak dimakan."
+    penjelasanSalah: "Makanan yang bersih, aroma yang menggoda,\n dan terlihat enak
+      tidak perlu lagi diragukan \ndan sudah aman untuk dimakan."
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 5
-    pertanyaan: Bolehkah kita minum susu yang sudah menggumpal karena terlalu lama
-      kena panas?
+    pertanyaan: Bolehkan kita meminum minuman yang kemasannya terbuka?
     pilihanJawaban:
-    - Tidak boleh, karena bisa menjadi racun bagi tubuh
-    - Boleh, cukup dikocok-kocok dulu sampai cair
-    - Boleh, kalau sedang haus sekali
+    - Tidak boleh, karena bisa terkontaminasi oleh bakteri
+    - Boleh, Jika minumnya dengan sedotan
+    - Boleh, Jika susunya memiliki merk
     indexJawabanBenar: 0
-    penjelasanBenar: 'Susu yang menggumpal itu sudah rusak.
+    penjelasanBenar: 'Kemasan minuman yang sudah terbuka sangat berbahaya
+
+      untuk
+      dikonsumsi karena sudah terkontaminasi dengan bakteri
 
       Kalau diminum
       bisa bikin sakit.
 
       Jadi tidak boleh diminum ya!'
-    penjelasanSalah: 'Susu yang menggumpal tidak bisa diperbaiki.
-
-      Tetap berbahaya
-      walaupun dikocok atau dicampur.
-
-      Jadi harus dibuang!'
+    penjelasanSalah: "Kemasan minuman walaupun diminum dengan sedotan\natau memiliki
+      merk terkenal tidak menjamin \nminuman tersebut akan aman dikonsumsi.\nMinuman
+      yang kemasannya terbuka sangat berbahaya \nwalaupun dikocok atau dicampur.\nJadi
+      harus dibuang!"
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 6
-    pertanyaan: Kalau perutmu terasa mual setelah makan, apa yang harus kamu lakukan?
+    pertanyaan: Apa yang terjadi jika kamu mengkonsumsi makanan basi?
     pilihanJawaban:
-    - Langsung lapor ke Ibu Guru atau Orang Tua
-    - Diam saja sambil terus main lari-larian
-    - Menangis sendirian di pojokan
+    - Mual, Muntah, Diare, dan Sakit
+    - Sehat dan Bugar
+    - Senang dan Bertenaga
     indexJawabanBenar: 0
     penjelasanBenar: 'Kalau perut mual, harus langsung lapor orang dewasa.
 

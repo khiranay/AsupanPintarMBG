@@ -37,13 +37,23 @@ public class XRayGameManager : MonoBehaviour, IGameManager
     public int totalItem = 10;
     public float gameDuration = 60f;
 
-    // BUG FIX #2: Tambahkan popup hasil yang sebelumnya tidak ada
     [Header("Popup Hasil")]
     public GameObject popupHasil;
     public TextMeshProUGUI teksHasilSkor;
     public TextMeshProUGUI teksHasilBenar;
     public TextMeshProUGUI teksHasilSalah;
 
+    [Header("Poin")]
+    public int poinBenar = 10;
+    public int poinSalah = -5;
+
+    [Header("Floating Score Text")]
+    [Tooltip("Prefab TextMeshProUGUI untuk efek skor melayang")]
+    public GameObject floatingTextPrefab;
+    [Tooltip("Parent transform untuk floating text (drag root GameObject)")]
+    public Transform uiParent;
+
+    // ─── Private ───────────────────────────────────────────────────────
     private List<FoodItemData> itemQueue = new List<FoodItemData>();
     private FoodItemData currentItem;
     private int skor = 0;
@@ -57,6 +67,8 @@ public class XRayGameManager : MonoBehaviour, IGameManager
     private GameObject currentFoodObj;
     private FoodItem4 currentFoodComp;
 
+    // ─────────────────────────────────────────────────────────────────
+
     void Start()
     {
         timeLeft = gameDuration;
@@ -65,14 +77,13 @@ public class XRayGameManager : MonoBehaviour, IGameManager
         tombolBuang.interactable = false;
 
         if (glowEffect != null) glowEffect.gameObject.SetActive(false);
-        if (scanLine != null) scanLine.SetActive(false);
+        if (scanLine  != null) scanLine.SetActive(false);
         if (popupHasil != null) popupHasil.SetActive(false);
 
         tombolMakan.onClick.AddListener(() => OnKeputusan(true));
         tombolBuang.onClick.AddListener(() => OnKeputusan(false));
     }
 
-    // Dipanggil dari tombol X di popup perintah
     public void MulaiGame()
     {
         StartCoroutine(CountdownHelper.Hitung(teksCountdown, () =>
@@ -93,8 +104,6 @@ public class XRayGameManager : MonoBehaviour, IGameManager
             if (teksTimer != null)
                 teksTimer.text = string.Format("{0:00}:{1:00}", detik / 60, detik % 60);
 
-            // BUG FIX #3: Jika waktu habis saat menunggu keputusan player,
-            // paksa keluar dari waiting state agar RunGame() bisa selesai
             if (timeLeft <= 0 && isWaitingDecision)
             {
                 tombolMakan.interactable = false;
@@ -103,6 +112,8 @@ public class XRayGameManager : MonoBehaviour, IGameManager
             }
         }
     }
+
+    // ─────────────────────────────────────────────────────────────────
 
     void GenerateItemQueue()
     {
@@ -115,77 +126,58 @@ public class XRayGameManager : MonoBehaviour, IGameManager
 
     IEnumerator RunGame()
     {
-        if (itemQueue.Count > 0)
-        {
-            SpawnAtSpawnPoint(itemQueue[0]);
-        }
-
         for (int i = 0; i < itemQueue.Count; i++)
         {
             if (timeLeft <= 0) break;
 
             currentItem = itemQueue[i];
 
-            // 1. Gerakkan makanan ke Scan Point
+            // 1. Spawn 1 item saja di spawnPoint (tidak ada pre-spawn)
+            SpawnItem(currentItem);
+
+            // 2. Gerakkan ke Scan Point
             yield return StartCoroutine(MoveToPoint(currentFoodObj.transform, scanPoint.position));
 
             if (timeLeft <= 0) { CleanupCurrentFood(); break; }
-
-            // 2. Spawn item berikutnya di Spawn Point
-            GameObject nextFoodObj = null;
-            FoodItem4 nextFoodComp = null;
-            if (i + 1 < itemQueue.Count)
-            {
-                nextFoodObj = Instantiate(foodItemPrefab, itemContainer);
-                nextFoodObj.transform.position = spawnPoint.position;
-                nextFoodComp = nextFoodObj.GetComponent<FoodItem4>();
-                if (nextFoodComp != null) nextFoodComp.Setup(itemQueue[i + 1]);
-            }
 
             // 3. Animasi Scan
             yield return StartCoroutine(AnimasiScan(currentItem));
 
             if (timeLeft <= 0) { CleanupCurrentFood(); break; }
 
-            // 4. Tunggu keputusan player (Update() akan set isWaitingDecision=false jika waktu habis)
+            // 4. Tunggu keputusan player
             isWaitingDecision = true;
             tombolMakan.interactable = true;
             tombolBuang.interactable = true;
 
             while (isWaitingDecision)
-            {
                 yield return null;
-            }
 
-            // 5. Bersihkan UI scan
+            // 5. Cleanup item & UI — berlaku untuk SEMUA kasus:
+            //    a) player decide  → currentFoodObj sudah null (di-destroy di OnKeputusan)
+            //    b) timeout        → currentFoodObj masih ada, harus di-cleanup di sini
+            if (currentFoodObj != null)
+            {
+                currentFoodObj.SetActive(false);
+                Destroy(currentFoodObj);
+                currentFoodObj = null;
+                currentFoodComp = null;
+            }
             if (glowEffect != null) glowEffect.gameObject.SetActive(false);
             if (teksStatus != null) teksStatus.text = "";
-
-            // 6. Hapus makanan saat ini
-            if (currentFoodObj != null) Destroy(currentFoodObj);
-
-            currentFoodObj = nextFoodObj;
-            currentFoodComp = nextFoodComp;
+            if (scanLine   != null) scanLine.SetActive(false);
 
             itemProcessed++;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         GameOver();
     }
 
-    void CleanupCurrentFood()
-    {
-        tombolMakan.interactable = false;
-        tombolBuang.interactable = false;
-        if (currentFoodObj != null) Destroy(currentFoodObj);
-        if (glowEffect != null) glowEffect.gameObject.SetActive(false);
-        if (scanLine != null) scanLine.SetActive(false);
-    }
+    // ─────────────────────────────────────────────────────────────────
 
-    void SpawnAtSpawnPoint(FoodItemData item)
+    void SpawnItem(FoodItemData item)
     {
-        if (teksStatus != null) teksStatus.text = "ITEM MASUK";
         currentFoodObj = Instantiate(foodItemPrefab, itemContainer);
         currentFoodObj.transform.position = spawnPoint.position;
         currentFoodComp = currentFoodObj.GetComponent<FoodItem4>();
@@ -193,12 +185,26 @@ public class XRayGameManager : MonoBehaviour, IGameManager
             currentFoodComp.Setup(item);
     }
 
+    void CleanupCurrentFood()
+    {
+        tombolMakan.interactable = false;
+        tombolBuang.interactable = false;
+        if (currentFoodObj != null)
+        {
+            Destroy(currentFoodObj);
+            currentFoodObj = null;
+        }
+        if (glowEffect != null) glowEffect.gameObject.SetActive(false);
+        if (scanLine   != null) scanLine.SetActive(false);
+    }
+
     IEnumerator MoveToPoint(Transform objTransform, Vector3 targetPos)
     {
         while (objTransform != null && Vector3.Distance(objTransform.position, targetPos) > 1f)
         {
             if (timeLeft <= 0) yield break;
-            objTransform.position = Vector3.MoveTowards(objTransform.position, targetPos, conveyorSpeed * Time.deltaTime);
+            objTransform.position = Vector3.MoveTowards(
+                objTransform.position, targetPos, conveyorSpeed * Time.deltaTime);
             yield return null;
         }
         if (objTransform != null) objTransform.position = targetPos;
@@ -207,11 +213,11 @@ public class XRayGameManager : MonoBehaviour, IGameManager
     IEnumerator AnimasiScan(FoodItemData item)
     {
         if (teksStatus != null) teksStatus.text = "SCANNING...";
-        if (scanLine != null) scanLine.SetActive(true);
+        if (scanLine   != null) scanLine.SetActive(true);
 
         RectTransform scanRect = scanLine != null ? scanLine.GetComponent<RectTransform>() : null;
         float scanHeight = 200f;
-        float elapsed = 0f;
+        float elapsed   = 0f;
 
         while (elapsed < scanDuration)
         {
@@ -245,10 +251,9 @@ public class XRayGameManager : MonoBehaviour, IGameManager
     IEnumerator ShakeEffect(Transform objTransform)
     {
         Vector3 originalPos = objTransform.position;
-        float shakeDuration = 0.4f;
         float elapsed = 0f;
 
-        while (elapsed < shakeDuration)
+        while (elapsed < 0.4f)
         {
             elapsed += Time.deltaTime;
             float xOffset = Mathf.Sin(elapsed * 50f) * 10f;
@@ -259,28 +264,92 @@ public class XRayGameManager : MonoBehaviour, IGameManager
         objTransform.position = originalPos;
     }
 
+    // ─────────────────────────────────────────────────────────────────
+
     void OnKeputusan(bool pilihMakan)
     {
         tombolMakan.interactable = false;
         tombolBuang.interactable = false;
 
         bool benar = (pilihMakan == currentItem.isAman);
+        Vector3 posisiTeks = currentFoodObj != null
+            ? currentFoodObj.transform.position
+            : Vector3.zero;
 
         if (benar)
         {
-            skor += 10;
+            skor += poinBenar;
             jumlahBenar++;
             if (teksSkor != null) teksSkor.text = skor.ToString();
+            MunculkanFloatingText("+" + poinBenar, Color.green, posisiTeks);
         }
         else
         {
             jumlahSalah++;
+            MunculkanFloatingText(poinSalah.ToString(), Color.red, posisiTeks);
         }
+
+        // Langsung destroy & sembunyikan semua visual setelah keputusan
+        if (currentFoodObj != null)
+        {
+            Destroy(currentFoodObj);   // jadwal destroy akhir frame
+            currentFoodObj.SetActive(false); // langsung hilang di frame ini
+            currentFoodObj = null;
+            currentFoodComp = null;
+        }
+        if (glowEffect != null) glowEffect.gameObject.SetActive(false);
+        if (teksStatus != null) teksStatus.text = "";
+        if (scanLine   != null) scanLine.SetActive(false);
 
         isWaitingDecision = false;
     }
 
-    // BUG FIX #2: GameOver sekarang menampilkan popup hasil dan menyimpan progress
+    // ─────────────────────────────────────────────────────────────────
+
+    void MunculkanFloatingText(string teks, Color warna, Vector3 posisi)
+    {
+        if (floatingTextPrefab == null) return;
+
+        Transform parent = uiParent != null ? uiParent : transform;
+        GameObject obj = Instantiate(floatingTextPrefab, parent);
+        obj.transform.position = posisi;
+
+        TextMeshProUGUI tmp = obj.GetComponent<TextMeshProUGUI>();
+        if (tmp == null) tmp = obj.GetComponentInChildren<TextMeshProUGUI>();
+        if (tmp != null)
+        {
+            tmp.text = teks;
+            tmp.color = warna;
+        }
+
+        StartCoroutine(AnimasiFloatingText(obj));
+    }
+
+    IEnumerator AnimasiFloatingText(GameObject obj)
+    {
+        float durasi  = 1f;
+        float timer   = 0f;
+        Vector3 startPos = obj.transform.position;
+        Vector3 endPos   = startPos + Vector3.up * 80f;
+
+        CanvasGroup cg = obj.GetComponent<CanvasGroup>();
+        if (cg == null) cg = obj.AddComponent<CanvasGroup>();
+
+        while (timer < durasi)
+        {
+            if (obj == null) yield break;
+            timer += Time.deltaTime;
+            float t = timer / durasi;
+            obj.transform.position = Vector3.Lerp(startPos, endPos, t);
+            cg.alpha = Mathf.Lerp(1f, 0f, t);
+            yield return null;
+        }
+
+        if (obj != null) Destroy(obj);
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+
     void GameOver()
     {
         if (gameEnded) return;
@@ -294,9 +363,13 @@ public class XRayGameManager : MonoBehaviour, IGameManager
 
         if (popupHasil != null)
         {
-            if (teksHasilSkor != null)  teksHasilSkor.text  = skor.ToString();
-            if (teksHasilBenar != null) teksHasilBenar.text = jumlahBenar.ToString();
-            if (teksHasilSalah != null) teksHasilSalah.text = jumlahSalah.ToString();
+            // Skor akhir = (benar × poinBenar) - (salah × |poinSalah|)
+            int skorAkhir = Mathf.Max(0,
+                (jumlahBenar * poinBenar) - (jumlahSalah * Mathf.Abs(poinSalah)));
+
+            if (teksHasilSkor  != null) teksHasilSkor.text  = skorAkhir.ToString();
+            if (teksHasilBenar != null) teksHasilBenar.text = jumlahBenar.ToString("00");
+            if (teksHasilSalah != null) teksHasilSalah.text = jumlahSalah.ToString("00");
             popupHasil.SetActive(true);
         }
         else
@@ -305,16 +378,9 @@ public class XRayGameManager : MonoBehaviour, IGameManager
         }
     }
 
-    // Hubungkan ke tombol Selesai di popup hasil
-    public void OnTombolSelesai()
-    {
-        LevelFlowManager.OnGameSelesai();
-    }
+    // ─────────────────────────────────────────────────────────────────
 
-    // Hubungkan ke tombol Ulang di popup hasil
-    public void OnTombolUlang()
-    {
-        SceneLoader.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-    }
+    public void OnTombolSelesai() => LevelFlowManager.OnGameSelesai();
+    public void OnTombolUlang()   => SceneLoader.LoadScene(
+        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 }

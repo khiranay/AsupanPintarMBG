@@ -16,3 +16,4 @@ MonoBehaviour:
   spriteItem: {fileID: -891859979889755850, guid: c9fce4899a3f62744a9e560f5c35076c, type: 3}
   isSegar: 1
   keterangan: 
+  prefabKhusus: {fileID: 8175373947733561421, guid: e1007c57c9fddb845a4adb6ca0780c63, type: 3}

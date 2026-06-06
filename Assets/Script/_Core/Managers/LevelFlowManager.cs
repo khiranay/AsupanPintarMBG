@@ -57,6 +57,36 @@ public static class LevelFlowManager
         GoToRouteMap();
     }
 
+    // ─── Dipanggil tombol Next di popup Game → Materi level berikutnya ─
+    /// <summary>
+    /// Game selesai → simpan bintang 3 → unlock next → ke Materi level+1.
+    /// </summary>
+    public static void GoToNextLevelMateri(int totalLevel = 7)
+    {
+        int level = PlayerPrefs.GetInt(KeyCurrentLevel, 1);
+
+        // Simpan bintang 3 & unlock level berikutnya
+        LevelProgressManager.CompleteMiniGame(level);
+        int highestUnlocked = PlayerPrefs.GetInt("HighestUnlocked", 1);
+        if (level >= highestUnlocked)
+        {
+            PlayerPrefs.SetInt("HighestUnlocked", level + 1);
+            PlayerPrefs.Save();
+        }
+
+        if (level >= totalLevel)
+        {
+            // Sudah level terakhir → kembali ke RouteMap
+            GoToRouteMap();
+            return;
+        }
+
+        // Set level berikutnya lalu muat Materi
+        PlayerPrefs.SetInt(KeyCurrentLevel, level + 1);
+        PlayerPrefs.Save();
+        SceneLoader.LoadScene(MateriScene);
+    }
+
     // ─── Navigasi umum ────────────────────────────────────────────────
     public static void GoToRouteMap()
     {

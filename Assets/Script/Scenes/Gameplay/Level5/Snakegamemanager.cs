@@ -7,15 +7,36 @@ using System.Collections.Generic;
 public class SnakeGameManager : MonoBehaviour, IGameManager
 {
     [Header("Grid")]
-    public int   gridWidth   = 8;
-    public int   gridHeight  = 5;
-    public float cellSize    = 120f;
+    [Tooltip("Jumlah kolom grid (horizontal). Recommended: 10-12")]
+    public int   gridWidth   = 10;
+    [Tooltip("Jumlah baris grid (vertikal). Recommended: 6-8 untuk gameplay nyaman")]
+    public int   gridHeight  = 6;
+    [Tooltip("AUTO: Centang untuk hitung cell size otomatis sesuai panel. MANUAL: Uncheck dan set cellSize manual.")]
+    public bool autoFitToPanel = true;
+    [Tooltip("Ukuran setiap cell dalam pixels (hanya dipakai jika autoFitToPanel = false)")]
+    public float cellSize    = 90f;
     public RectTransform gridContainer;
+
+    private float actualCellSize; // Cell size yang dipakai (hasil kalkulasi atau manual)
 
     [Header("Snake Pemain")]
     public GameObject snakeHeadPrefab;
     public GameObject snakeBodyPrefab;
-    public float baseMoveInterval = 0.35f;
+    public float baseMoveInterval = 0.5f; // Diperlambat dari 0.35 ke 0.5
+
+    [Header("Rotasi Sprite")]
+    [Tooltip("Arah default sprite kepala ular di prefab: 0=Kanan, 1=Atas, 2=Kiri, 3=Bawah")]
+    public int spriteDefaultDirection = 1; // 0=Right, 1=Up, 2=Left, 3=Down
+
+    [Header("Dinding/Boundaries")]
+    [Tooltip("Jika TRUE: ular nabrak dinding = game over. Jika FALSE: ular keluar dari satu sisi dan muncul di sisi lain (wrap around)")]
+    public bool enableWalls = false; // Default false = wrap around mode
+
+    [Header("Snake Growth")]
+    [Tooltip("Jika TRUE: ular bertambah panjang saat makan. Jika FALSE: ular tetap panjang awal (tidak tumbuh), fokus ke skor saja.")]
+    public bool enableGrowth = false; // Default false = tidak tumbuh
+    [Tooltip("Panjang awal ular (jumlah segment). Min: 1 (hanya kepala), Recommended: 2-3 (kepala + ekor)")]
+    public int initialSnakeLength = 2; // Default 2 = kepala + 1 ekor
 
     [Header("Difficulty Scaling")]
     public float minMoveInterval = 0.15f;
@@ -38,12 +59,24 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
     public float poissonMinDariPlayer = 2f;
     public int   poissonK            = 30;
 
-    [Header("UI")]
+    [Header("Food Spawn Ratio")]
+    [Tooltip("Persentase chance spawn makanan SEGAR (0-100). Contoh: 70 = 70% segar, 30% tidak segar.")]
+    [Range(0, 100)]
+    public int chanceSpawnSegar = 70; // Default 70% segar, 30% tidak segar
+
+    [Header("UI Skor & Timer")]
     public TextMeshProUGUI teksSkor;
     public int             targetSkor = 100;
+    [Tooltip("TextMeshProUGUI untuk tampilan waktu tersisa (format MM:SS)")]
+    public TextMeshProUGUI teksWaktu;
+    public float           durasiTimer = 60f; // Durasi game dalam detik (default 60 detik)
+
+    [Header("UI Countdown & Effects")]
     [Tooltip("TextMeshProUGUI untuk tampilan 3-2-1-GO! (opsional)")]
     public TextMeshProUGUI teksCountdown;
     public GameObject      floatingTextPrefab; // Prefab UI Text untuk efek skor melayang
+
+    [Header("UI Popup")]
     public GameObject      popupHasil;
     public TextMeshProUGUI teksHasilSkor;
     public GameObject      popupPerintah;
@@ -69,6 +102,7 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
     private int  skor      = 0;
     private bool isPlaying = false;
     private float currentMoveInterval;
+    private float timeLeft;  // Waktu tersisa
 
     private System.Random rng = new System.Random();
 
@@ -77,17 +111,67 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
 
     void Start()
     {
+        // Reset state
+        skor = 0;
+        isPlaying = false;
+
+        // Hitung cell size otomatis jika enabled
+        CalculateCellSize();
+
+        // Setup UI
         if (popupPerintah != null) popupPerintah.SetActive(true);
+        if (popupHasil != null) popupHasil.SetActive(false); // Pastikan popup hasil tersembunyi
+
         IsiPanelHindari();
         currentMoveInterval = baseMoveInterval;
+        timeLeft = durasiTimer;
         UpdateScoreUI();
+        UpdateTimerUI();
+
+        Debug.Log($"[Snake] Start() - Timer: {durasiTimer}s, isPlaying: {isPlaying}, CellSize: {actualCellSize}");
+    }
+
+    /// <summary>
+    /// Hitung cell size otomatis agar grid pas dengan ukuran panel container.
+    /// </summary>
+    void CalculateCellSize()
+    {
+        if (autoFitToPanel && gridContainer != null)
+        {
+            // Ambil ukuran panel container
+            float panelWidth = gridContainer.rect.width;
+            float panelHeight = gridContainer.rect.height;
+
+            // Hitung cell size berdasarkan constraint yang paling ketat
+            float cellSizeByWidth = panelWidth / gridWidth;
+            float cellSizeByHeight = panelHeight / gridHeight;
+
+            // Gunakan yang lebih kecil agar muat di kedua dimensi
+            actualCellSize = Mathf.Min(cellSizeByWidth, cellSizeByHeight);
+
+            // Tambahkan sedikit padding agar tidak mepet
+            actualCellSize *= 0.95f;
+
+            Debug.Log($"[Snake] Auto Cell Size - Panel: {panelWidth}x{panelHeight}, Grid: {gridWidth}x{gridHeight}, Cell: {actualCellSize}px");
+        }
+        else
+        {
+            // Gunakan manual cell size
+            actualCellSize = cellSize;
+            Debug.Log($"[Snake] Manual Cell Size: {actualCellSize}px");
+        }
     }
 
     void Update()
     {
         if (!isPlaying) return;
 
-        // Input Keyboard (Bisa pakai Arrow Keys atau WASD)
+        // Input Keyboard dinonaktifkan sementara untuk menghindari konflik dengan Input System
+        // Game menggunakan tombol UI untuk kontrol
+        // Jika ingin aktifkan keyboard, ganti Active Input Handling ke "Input Manager (Old)" atau "Both"
+        // di Project Settings > Player > Other Settings
+
+        /*
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             OnTombolAtas();
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
@@ -96,6 +180,7 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
             OnTombolKiri();
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             OnTombolKanan();
+        */
     }
 
     void OnDestroy()
@@ -105,16 +190,25 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
 
     public void MulaiGame()
     {
+        Debug.Log("[Snake] MulaiGame() dipanggil");
+
         Time.timeScale = 1f;
         if (popupPerintah != null) popupPerintah.SetActive(false);
+        if (popupHasil != null) popupHasil.SetActive(false);
 
         StartCoroutine(CountdownHelper.Hitung(teksCountdown, () =>
         {
+            Debug.Log($"[Snake] Countdown selesai, mulai game. Timer: {durasiTimer}s");
+
             InitPlayerSnake();
             SpawnSemuaFood();
             if (aktifkanUlarMusuh) InitEnemySnake();
+
             isPlaying = true;
+            timeLeft = durasiTimer; // Reset timer
+
             StartCoroutine(PlayerLoop());
+            StartCoroutine(TimerCountdown());
             if (aktifkanUlarMusuh) StartCoroutine(EnemyLoop());
         }));
     }
@@ -173,19 +267,25 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
             return;
         }
 
-        if (foodPrefab == null)
+        // Pilih makanan berdasarkan ratio segar vs tidak segar
+        FoodItemDataLv5 data = PickFoodByRatio();
+
+        // Pilih prefab: gunakan prefabKhusus jika ada, jika tidak gunakan foodPrefab default
+        GameObject prefabToSpawn = data.prefabKhusus != null ? data.prefabKhusus : foodPrefab;
+
+        if (prefabToSpawn == null)
         {
-            Debug.LogError("[SnakeGame] foodPrefab kosong! Assign prefab makanan di Inspector.");
+            Debug.LogError($"[SnakeGame] Tidak ada prefab untuk '{data.namaItem}'! " +
+                           "Isi 'Prefab Khusus' di FoodItemData atau 'Food Prefab' di GameManager.");
             return;
         }
 
-        FoodItemDataLv5 data = daftarMakanan[Random.Range(0, daftarMakanan.Length)];
-        GameObject obj = Instantiate(foodPrefab, gridContainer);
+        GameObject obj = Instantiate(prefabToSpawn, gridContainer);
 
         FoodItemLv5 foodComp = obj.GetComponent<FoodItemLv5>();
         if (foodComp == null)
         {
-            Debug.LogError($"[SnakeGame] Prefab '{foodPrefab.name}' tidak punya komponen FoodItemLv5! " +
+            Debug.LogError($"[SnakeGame] Prefab '{prefabToSpawn.name}' tidak punya komponen FoodItemLv5! " +
                            "Tambahkan script FoodItemLv5 ke prefab makanan.");
             Destroy(obj);
             return;
@@ -197,19 +297,104 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
         foodData[pos] = data;
     }
 
+    /// <summary>
+    /// Pilih makanan berdasarkan ratio segar vs tidak segar.
+    /// </summary>
+    FoodItemDataLv5 PickFoodByRatio()
+    {
+        // Pisahkan makanan segar dan tidak segar
+        List<FoodItemDataLv5> segarList = new List<FoodItemDataLv5>();
+        List<FoodItemDataLv5> tidakSegarList = new List<FoodItemDataLv5>();
+
+        foreach (var item in daftarMakanan)
+        {
+            if (item.isSegar)
+                segarList.Add(item);
+            else
+                tidakSegarList.Add(item);
+        }
+
+        // Jika salah satu list kosong, fallback ke random biasa
+        if (segarList.Count == 0 && tidakSegarList.Count == 0)
+        {
+            Debug.LogError("[Snake] Tidak ada makanan di daftarMakanan!");
+            return daftarMakanan[0];
+        }
+
+        if (segarList.Count == 0)
+            return tidakSegarList[Random.Range(0, tidakSegarList.Count)];
+
+        if (tidakSegarList.Count == 0)
+            return segarList[Random.Range(0, segarList.Count)];
+
+        // Random berdasarkan ratio
+        int roll = Random.Range(0, 100);
+
+        if (roll < chanceSpawnSegar)
+        {
+            // Spawn makanan segar
+            return segarList[Random.Range(0, segarList.Count)];
+        }
+        else
+        {
+            // Spawn makanan tidak segar
+            return tidakSegarList[Random.Range(0, tidakSegarList.Count)];
+        }
+    }
+
     void InitPlayerSnake()
     {
-        Vector2Int start = new Vector2Int(gridWidth / 2, gridHeight / 2);
+        // Spawn lebih ke tengah bawah agar punya ruang lebih ke atas
+        Vector2Int start = new Vector2Int(gridWidth / 2, Mathf.Max(1, gridHeight / 3));
+
+        Debug.Log($"[Snake] InitPlayerSnake - Grid: {gridWidth}x{gridHeight}, Start pos: {start}, Length: {initialSnakeLength}");
+
+        playerBody.Clear();
+        playerBodySet.Clear();
+        foreach (GameObject obj in playerObjects)
+            if (obj != null) Destroy(obj);
+        playerObjects.Clear();
+
+        // Spawn kepala
         playerBody.Add(start);
         playerBodySet.Add(start);
         GameObject head = Instantiate(snakeHeadPrefab, gridContainer);
         SetUIPosition(head.GetComponent<RectTransform>(), start);
         playerObjects.Add(head);
         playerDir = nextPlayerDir = Vector2Int.right;
+
+        // Set rotasi awal kepala ular
+        UpdateSnakeHeadRotation(head, playerDir);
+
+        // Spawn body/ekor (initialSnakeLength - 1 segment)
+        // Body akan spawn di belakang kepala (berlawanan arah)
+        Vector2Int oppositeDir = -playerDir; // Jika kepala ke kanan, body ke kiri dari kepala
+
+        for (int i = 1; i < initialSnakeLength; i++)
+        {
+            Vector2Int bodyPos = start + (oppositeDir * i);
+
+            // Pastikan posisi body valid (wrap jika perlu)
+            if (!InBounds(bodyPos))
+                bodyPos = WrapPosition(bodyPos);
+
+            playerBody.Add(bodyPos);
+            playerBodySet.Add(bodyPos);
+
+            GameObject bodyObj = Instantiate(snakeBodyPrefab, gridContainer);
+            SetUIPosition(bodyObj.GetComponent<RectTransform>(), bodyPos);
+            playerObjects.Add(bodyObj);
+        }
+
+        // Update rotasi semua body segments
+        UpdateAllBodyRotations(playerBody, playerObjects);
     }
 
     IEnumerator PlayerLoop()
     {
+        // Delay sebelum ular mulai bergerak (beri waktu player untuk siap)
+        yield return new WaitForSeconds(1.5f); // Diperpanjang dari 0.5 ke 1.5 detik
+
         while (isPlaying)
         {
             yield return new WaitForSeconds(currentMoveInterval);
@@ -220,15 +405,42 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
     void MovePlayer()
     {
         playerDir = nextPlayerDir;
+
+        // Rotasi kepala ular sesuai arah
+        UpdateSnakeHeadRotation(playerObjects[0], playerDir);
+
         Vector2Int newHead = playerBody[0] + playerDir;
 
+        // Wrap around jika keluar dari bounds (kecuali enableWalls = true)
         if (!InBounds(newHead))
-            { GameOver(false, "Menabrak dinding!"); return; }
+        {
+            if (enableWalls)
+            {
+                // Mode dengan dinding: game over
+                Debug.LogError($"[Snake] OUT OF BOUNDS! Pos: {newHead}, Grid: {gridWidth}x{gridHeight}");
+                GameOver(false, "Menabrak dinding!");
+                return;
+            }
+            else
+            {
+                // Mode wrap around: teleport ke sisi lain
+                newHead = WrapPosition(newHead);
+                Debug.Log($"[Snake] Wrap Around: {playerBody[0]} -> {newHead} (wrapped)");
+            }
+        }
+        else
+        {
+            Debug.Log($"[Snake] Move: {playerBody[0]} -> {newHead}, Dir: {playerDir}, Bounds: {gridWidth}x{gridHeight}");
+        }
 
-        bool tailWillMove = !foodObjects.ContainsKey(newHead);
-        Vector2Int currentTail = playerBody[playerBody.Count - 1];
-        if (playerBodySet.Contains(newHead) && (!tailWillMove || newHead != currentTail))
-            { GameOver(false, "Menabrak badan sendiri!"); return; }
+        // Cek nabrak badan sendiri (hanya jika ular punya body, yaitu panjang > 1)
+        if (playerBody.Count > 1)
+        {
+            bool tailWillMove = !foodObjects.ContainsKey(newHead);
+            Vector2Int currentTail = playerBody[playerBody.Count - 1];
+            if (playerBodySet.Contains(newHead) && (!tailWillMove || newHead != currentTail))
+                { GameOver(false, "Menabrak badan sendiri!"); return; }
+        }
 
         if (aktifkanUlarMusuh && enemyBodySet.Contains(newHead))
             { GameOver(false, "Ketangkap ular musuh!"); return; }
@@ -243,7 +455,8 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
             if (item.isSegar)
             {
                 TambahSkor(POIN_SEGAR);
-                tumbuh = true;
+                // Ular hanya tumbuh jika enableGrowth = true
+                tumbuh = enableGrowth;
                 MunculkanFloatingText("+" + POIN_SEGAR, Color.green, posisiMakan);
             }
             else
@@ -327,6 +540,41 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
     public void OnTombolKiri()  { if (playerDir != Vector2Int.right) nextPlayerDir = Vector2Int.left;  }
     public void OnTombolKanan() { if (playerDir != Vector2Int.left)  nextPlayerDir = Vector2Int.right; }
 
+    /// <summary>
+    /// Update rotasi kepala ular sesuai arah pergerakan.
+    /// </summary>
+    void UpdateSnakeHeadRotation(GameObject head, Vector2Int direction)
+    {
+        if (head == null) return;
+
+        float angle = GetAngleForDirection(direction);
+        head.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
+    /// <summary>
+    /// Hitung angle rotasi berdasarkan arah dan orientasi default sprite.
+    /// </summary>
+    float GetAngleForDirection(Vector2Int direction)
+    {
+        // Base angle untuk setiap arah jika sprite default menghadap kanan (0)
+        float baseAngle = 0f;
+
+        if (direction == Vector2Int.right)
+            baseAngle = 0f;
+        else if (direction == Vector2Int.left)
+            baseAngle = 180f;
+        else if (direction == Vector2Int.up)
+            baseAngle = 90f;
+        else if (direction == Vector2Int.down)
+            baseAngle = -90f;
+
+        // Adjust berdasarkan orientasi default sprite
+        // spriteDefaultDirection: 0=Right, 1=Up, 2=Left, 3=Down
+        float offset = spriteDefaultDirection * -90f;
+
+        return baseAngle + offset;
+    }
+
     void InitEnemySnake()
     {
         // BUG FIX #7: Validasi bahwa spawn position ditemukan, bukan diam-diam pakai (0,0)
@@ -376,11 +624,18 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
             ? path[1]
             : GetRandomValidMove(enemyBody[0], obstacles);
 
+        // Hitung arah pergerakan ular musuh untuk rotasi
+        Vector2Int enemyDir = nextPos - enemyBody[0];
+
         if (nextPos == playerBody[0]) { GameOver(false, "Ketangkap ular musuh!"); return; }
 
         bool musuhTumbuh = (enemyBody.Count < maxEnemyLength) && (Random.value < 0.2f);
 
         GerakkanSnakePool(enemyBody, enemyBodySet, enemyObjects, enemyBodyPrefab, nextPos, musuhTumbuh);
+
+        // Update rotasi kepala ular musuh (body sudah di-update di GerakkanSnakePool)
+        if (enemyObjects.Count > 0)
+            UpdateSnakeHeadRotation(enemyObjects[0], enemyDir);
     }
 
     class AStarNode
@@ -503,6 +758,7 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
                 objects.RemoveAt(lastIdx);
 
                 SetUIPosition(tailObj.GetComponent<RectTransform>(), oldHeadPos);
+
                 objects.Insert(1, tailObj);
                 body.Insert(1, oldHeadPos);
                 bodySet.Add(oldHeadPos);
@@ -516,6 +772,30 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
 
         body[0] = newHeadPos;
         bodySet.Add(newHeadPos);
+
+        // Update rotasi semua body segments setelah movement selesai
+        UpdateAllBodyRotations(body, objects);
+    }
+
+    /// <summary>
+    /// Update rotasi semua body segments berdasarkan arah dari segment ke segment berikutnya.
+    /// </summary>
+    void UpdateAllBodyRotations(List<Vector2Int> body, List<GameObject> objects)
+    {
+        // Skip index 0 (kepala sudah di-handle di MovePlayer)
+        for (int i = 1; i < body.Count && i < objects.Count; i++)
+        {
+            // Hitung arah dari segment ini ke segment sebelumnya (di depannya)
+            Vector2Int currentPos = body[i];
+            Vector2Int prevPos = body[i - 1];
+            Vector2Int direction = prevPos - currentPos;
+
+            if (direction.sqrMagnitude > 0)
+            {
+                float angle = GetAngleForDirection(direction);
+                objects[i].transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
+        }
     }
 
     void TambahSkor(int nilai)
@@ -529,12 +809,47 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
         }
 
         UpdateScoreUI();
+
+        // Cek apakah target skor tercapai
+        if (skor >= targetSkor)
+        {
+            Debug.Log($"[Snake] Target skor tercapai! {skor}/{targetSkor}");
+            GameOver(true, "Target Tercapai!");
+        }
     }
 
     void UpdateScoreUI()
     {
         if (teksSkor != null)
             teksSkor.text = $"SKOR: {skor} / {targetSkor}";
+    }
+
+    IEnumerator TimerCountdown()
+    {
+        Debug.Log($"[Snake] Timer countdown dimulai: {timeLeft}s");
+
+        while (timeLeft > 0 && isPlaying)
+        {
+            timeLeft -= Time.deltaTime;
+            UpdateTimerUI();
+            yield return null;
+        }
+
+        // Waktu habis
+        if (isPlaying)
+        {
+            Debug.Log("[Snake] Waktu habis!");
+            GameOver(false, "Waktu Habis!");
+        }
+    }
+
+    void UpdateTimerUI()
+    {
+        if (teksWaktu != null)
+        {
+            int detik = Mathf.CeilToInt(Mathf.Max(0f, timeLeft));
+            teksWaktu.text = string.Format("{0:00}:{1:00}", detik / 60, detik % 60);
+        }
     }
 
     void IsiPanelHindari()
@@ -573,6 +888,8 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
 
     void GameOver(bool menang, string pesan = "")
     {
+        Debug.Log($"[Snake] GameOver dipanggil: menang={menang}, pesan={pesan}, isPlaying={isPlaying}");
+
         if (!isPlaying) return;
         isPlaying = false;
 
@@ -593,7 +910,10 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
         if (popupHasil != null)
         {
             popupHasil.SetActive(true);
-            if (teksHasilSkor != null) teksHasilSkor.text = skor.ToString();
+            if (teksHasilSkor != null)
+            {
+                teksHasilSkor.text = skor.ToString();
+            }
         }
     }
 
@@ -604,8 +924,30 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
-    bool InBounds(Vector2Int p) =>
-        p.x >= 0 && p.x < gridWidth && p.y >= 0 && p.y < gridHeight;
+    bool InBounds(Vector2Int p)
+    {
+        return p.x >= 0 && p.x < gridWidth && p.y >= 0 && p.y < gridHeight;
+    }
+
+    /// <summary>
+    /// Wrap position agar ular yang keluar dari satu sisi muncul di sisi lain.
+    /// </summary>
+    Vector2Int WrapPosition(Vector2Int pos)
+    {
+        // Wrap X (horizontal)
+        if (pos.x < 0)
+            pos.x = gridWidth - 1;  // Keluar kiri → muncul kanan
+        else if (pos.x >= gridWidth)
+            pos.x = 0;              // Keluar kanan → muncul kiri
+
+        // Wrap Y (vertical)
+        if (pos.y < 0)
+            pos.y = gridHeight - 1; // Keluar bawah → muncul atas
+        else if (pos.y >= gridHeight)
+            pos.y = 0;              // Keluar atas → muncul bawah
+
+        return pos;
+    }
 
     float ManhattanDist(Vector2Int a, Vector2Int b) =>
         Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
@@ -619,10 +961,11 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
         rect.anchorMax = Vector2.zero;
         rect.pivot     = new Vector2(0.5f, 0.5f);
 
-        rect.sizeDelta        = new Vector2(cellSize, cellSize);
+        // Gunakan actualCellSize (hasil kalkulasi auto atau manual)
+        rect.sizeDelta        = new Vector2(actualCellSize, actualCellSize);
         rect.anchoredPosition = new Vector2(
-            pos.x * cellSize + cellSize * 0.5f,
-            pos.y * cellSize + cellSize * 0.5f
+            pos.x * actualCellSize + actualCellSize * 0.5f,
+            pos.y * actualCellSize + actualCellSize * 0.5f
         );
     }
 }

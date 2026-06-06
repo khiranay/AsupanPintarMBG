@@ -11,4 +11,8 @@ public class FoodItemDataLv5 : ScriptableObject
     public Sprite   spriteItem;  // Icon makanan
     public bool     isSegar;     // true = makanan segar (boleh dimakan), false = meragukan
     public string   keterangan;  // Contoh: "Segar dan bergizi!" / "Sudah memar, hindari!"
+
+    [Header("Prefab (Opsional)")]
+    [Tooltip("Jika diisi, akan spawn prefab ini. Jika kosong, gunakan Food Prefab default dari GameManager.")]
+    public GameObject prefabKhusus; // Prefab khusus untuk makanan ini (opsional)
 }
