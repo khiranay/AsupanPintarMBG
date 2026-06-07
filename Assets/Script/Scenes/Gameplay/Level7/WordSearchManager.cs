@@ -172,6 +172,10 @@ public class WordSearchManager : MonoBehaviour, IGameManager
                                       ?? cellObj.AddComponent<WordSearchCell>();
                     cell.Initialize(r, c, letter);
                     grid[r, c] = cell;
+
+                    // Pastikan Image punya Raycast Target = true agar bisa dideteksi
+                    Image img = cellObj.GetComponent<Image>();
+                    if (img != null) img.raycastTarget = true;
                 }
 
             Debug.Log($"[WordSearch] Grid {rowCount}×{colCount} dibuat dari prefab.");
@@ -287,6 +291,13 @@ public class WordSearchManager : MonoBehaviour, IGameManager
 
         if (currentHighlight != null) Destroy(currentHighlight);
         currentHighlight = CreateHighlight(warnaPilihan);
+        if (currentHighlight == null)
+        {
+            Debug.LogError("[WordSearch] FAILED to create highlight! Check highlightPrefab and highlightContainer in Inspector.");
+            isDragging = false;
+            selectedCells.Clear();
+            return;
+        }
         RefreshHighlight(currentHighlight, selectedCells);
     }
 
@@ -423,39 +434,71 @@ public class WordSearchManager : MonoBehaviour, IGameManager
 
     GameObject CreateHighlight(Color color)
     {
-        if (highlightPrefab == null || highlightContainer == null) return null;
+        if (highlightPrefab == null)
+        {
+            Debug.LogError("[WordSearch] highlightPrefab is NULL! Assign in Inspector.");
+            return null;
+        }
+        if (highlightContainer == null)
+        {
+            Debug.LogError("[WordSearch] highlightContainer is NULL! Assign in Inspector.");
+            return null;
+        }
+
 
         GameObject hl = Instantiate(highlightPrefab, highlightContainer);
+        hl.name = "Highlight_" + Time.time.ToString("F2");
+
+
+        // Ensure highlight renders on TOP of cells
+        hl.transform.SetAsLastSibling();
+
         Image img = hl.GetComponent<Image>();
         if (img != null) img.color = color;
+
+        Debug.Log($"[WordSearch] Highlight created: {hl.name}, pos={hl.transform.position}, container={highlightContainer.name}");
         return hl;
     }
 
     void RefreshHighlight(GameObject highlight, List<WordSearchCell> cells)
     {
-        if (highlight == null || cells == null || cells.Count == 0) return;
+        if (highlight == null || cells == null || cells.Count == 0)
+        {
+            Debug.LogError($"[WordSearch] RefreshHighlight skipped: highlight={highlight != null}, cells={(cells != null ? cells.Count.ToString() : "null")}");
+            return;
+        }
 
         RectTransform hlRect = highlight.GetComponent<RectTransform>();
-        if (hlRect == null) return;
+        if (hlRect == null)
+        {
+            Debug.LogError("[WordSearch] Highlight has no RectTransform!");
+            return;
+        }
 
         RectTransform firstRect = cells[0].GetComponent<RectTransform>();
         RectTransform lastRect  = cells[cells.Count - 1].GetComponent<RectTransform>();
-        if (firstRect == null || lastRect == null) return;
+        if (firstRect == null || lastRect == null)
+        {
+            Debug.LogError("[WordSearch] Cell missing RectTransform!");
+            return;
+        }
 
         Vector3 firstWorld = firstRect.position;
         Vector3 lastWorld  = lastRect.position;
 
-        // Posisi tengah
+        // Posisi tengah di world space
         hlRect.position = (firstWorld + lastWorld) * 0.5f;
+
 
         // Ukuran sel (world scale)
         float cellW = firstRect.rect.width  * firstRect.lossyScale.x;
         float cellH = firstRect.rect.height * firstRect.lossyScale.y;
 
-        // Panjang highlight = jarak antar sel + lebar satu sel
-        float dist    = Vector3.Distance(firstWorld, lastWorld);
-        float hlWorld_W = (cells.Count == 1) ? cellW : dist + cellW;
-        float hlWorld_H = cellH * 0.8f;
+
+        // Hitung panjang actual: jumlah sel × lebar sel (lebar cell saja, tidak perlu +dist)
+        // Ini lebih akurat untuk semua arah (horizontal, vertikal, diagonal)
+        float hlWorld_W = cells.Count * cellW;
+        float hlWorld_H = cellH * 0.85f;
 
         // Konversi ke local size (bagi parent scale)
         float pScaleX = highlightContainer.lossyScale.x > 0 ? highlightContainer.lossyScale.x : 1f;
@@ -468,10 +511,12 @@ public class WordSearchManager : MonoBehaviour, IGameManager
             Vector3 dir = lastWorld - firstWorld;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             hlRect.rotation = Quaternion.Euler(0f, 0f, angle);
+            Debug.Log($"[WordSearch] Highlight refresh: cells={cells.Count}, pos={hlRect.position}, angle={angle:F1}°, size={hlRect.sizeDelta}");
         }
         else
         {
             hlRect.rotation = Quaternion.identity;
+            Debug.Log($"[WordSearch] Highlight refresh: 1 cell, pos={hlRect.position}, size={hlRect.sizeDelta}");
         }
     }
 

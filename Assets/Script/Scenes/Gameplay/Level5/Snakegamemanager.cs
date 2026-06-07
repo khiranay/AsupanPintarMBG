@@ -474,7 +474,8 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
 
         GerakkanSnakePool(playerBody, playerBodySet, playerObjects, snakeBodyPrefab, newHead, tumbuh);
 
-        if (skor >= targetSkor) GameOver(true, "Kamu Detektif Gizi Terbaik!");
+// Cek target skor di sini, bukan di TambahSkor
+if (skor >= targetSkor) GameOver(true, "Target Tercapai!");
     }
 
     IEnumerator FlashRedEffect(GameObject headObj)
@@ -799,24 +800,16 @@ public class SnakeGameManager : MonoBehaviour, IGameManager
     }
 
     void TambahSkor(int nilai)
-    {
-        int prevSkor = skor;
-        skor = Mathf.Max(0, skor + nilai);
+{
+    int prevSkor = skor;
+    skor = Mathf.Max(0, skor + nilai);
 
-        if (skor / skorPerSpeedUp > prevSkor / skorPerSpeedUp)
-        {
-            currentMoveInterval = Mathf.Max(minMoveInterval, currentMoveInterval - speedUpRate);
-        }
+    if (skor / skorPerSpeedUp > prevSkor / skorPerSpeedUp)
+        currentMoveInterval = Mathf.Max(minMoveInterval, currentMoveInterval - speedUpRate);
 
-        UpdateScoreUI();
+    UpdateScoreUI();
 
-        // Cek apakah target skor tercapai
-        if (skor >= targetSkor)
-        {
-            Debug.Log($"[Snake] Target skor tercapai! {skor}/{targetSkor}");
-            GameOver(true, "Target Tercapai!");
-        }
-    }
+}
 
     void UpdateScoreUI()
     {

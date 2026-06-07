@@ -53,7 +53,11 @@ public static class LevelFlowManager
             PlayerPrefs.SetInt("HighestUnlocked", level + 1);
             PlayerPrefs.Save();
         }
-
+        if (level == 7)
+        {
+        PlayerPrefs.SetInt("ShowSelesaiPopup", 1);
+        PlayerPrefs.Save();
+        }   
         GoToRouteMap();
     }
 

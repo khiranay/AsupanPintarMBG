@@ -2639,10 +2639,10 @@ MonoBehaviour:
     - Aroma khas makanan yang menggoda
     - Wadah kotor / terbuka
     indexJawabanBenar: 2
-    penjelasanBenar: "Wadah kotor dan terbuka mengundang bakteri \nmasuk ke dalam
-      makanan sehingga meragukan \ndan tidak layak dimakan."
-    penjelasanSalah: "Makanan yang bersih, aroma yang menggoda,\n dan terlihat enak
-      tidak perlu lagi diragukan \ndan sudah aman untuk dimakan."
+    penjelasanBenar: Wadah kotor dan terbuka mengundang bakteri masuk ke dalam makanan
+      sehingga meragukan dan tidak layak dimakan.
+    penjelasanSalah: Makanan yang bersih, aroma yang menggoda, dan terlihat enak
+      tidak perlu lagi diragukan dan sudah aman untuk dimakan.
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 5
@@ -2716,6 +2716,7 @@ MonoBehaviour:
   spriteDefault: {fileID: -1200648092479592173, guid: ae23f163a873a7145ab9406ac96c67ed, type: 3}
   spriteBenar: {fileID: -6183943016249811299, guid: f1dfc71acb9811443b94f830a5dfbfe1, type: 3}
   spriteSalah: {fileID: -261638240503098213, guid: ed8e1dfc1acba374ca4976d27847e7f3, type: 3}
+  audioManager: {fileID: 1964488213}
 --- !u!114 &1666759028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3048,6 +3049,154 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810696473}
   m_CullTransparentMesh: 1
+--- !u!1 &1964488211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1964488214}
+  - component: {fileID: 1964488213}
+  - component: {fileID: 1964488212}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1964488212
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964488211}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1964488213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964488211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a11c5cd4e43f2b43bbf21b9bd72b6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  bgm: {fileID: 1964488212}
+  soundOnIcon: {fileID: 0}
+  soundOffIcon: {fileID: 0}
+  bgmLevel: {fileID: 0}
+  sfxBenar: {fileID: 8300000, guid: 45bf1b92b9eb11b4da31934f9508669b, type: 3}
+  sfxSalah: {fileID: 8300000, guid: 035b4e3dfdf1d55438271fb06add80e5, type: 3}
+--- !u!4 &1964488214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964488211}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1148.5598, y: 546.7688, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2006366859
 GameObject:
   m_ObjectHideFlags: 0
@@ -3799,3 +3948,4 @@ SceneRoots:
   - {fileID: 1201897229}
   - {fileID: 1666759029}
   - {fileID: 2146236406}
+  - {fileID: 1964488214}

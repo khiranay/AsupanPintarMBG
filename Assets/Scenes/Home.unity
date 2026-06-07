@@ -2932,6 +2932,7 @@ MonoBehaviour:
   bgm: {fileID: 1255273914}
   soundOnIcon: {fileID: 1644976031}
   soundOffIcon: {fileID: 1866804874}
+  bgmLevel: {fileID: 0}
 --- !u!4 &1255273913
 Transform:
   m_ObjectHideFlags: 0
@@ -2958,7 +2959,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: d652ef172d0b723498aabca9ca36b645, type: 3}
+  m_Resource: {fileID: 8300000, guid: ef761833767df004aa63ebfbca715c24, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

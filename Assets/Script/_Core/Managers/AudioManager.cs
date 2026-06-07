@@ -7,21 +7,26 @@ public class AudioManager : MonoBehaviour
     public GameObject soundOnIcon;
     public GameObject soundOffIcon;
 
+    [Header("BGM Level")]
+    public AudioClip bgmLevel; 
+    // assign clip musik level di Inspector
+    [Header("SFX")]
+public AudioClip sfxBenar;
+public AudioClip sfxSalah;
+
+
+
     void Start()
     {
-        // bgm wajib diisi — error jika kosong
         if (bgm == null)
             Debug.LogError("[AudioManager] AudioSource 'bgm' belum di-assign di Inspector!");
 
-        // soundOnIcon & soundOffIcon opsional — hanya warning jika kosong
         if (soundOnIcon == null || soundOffIcon == null)
-            Debug.LogWarning("[AudioManager] soundOnIcon / soundOffIcon belum di-assign. " +
-                             "Tombol toggle sound tidak akan berubah tampilan, tapi tidak crash.");
+            Debug.LogWarning("[AudioManager] soundOnIcon / soundOffIcon belum di-assign.");
     }
 
     public void ToggleSound()
     {
-        // BUG FIX #9: Null-check agar tidak crash jika lupa assign di Inspector
         if (bgm == null) return;
 
         bool isMuted = bgm.mute;
@@ -30,4 +35,24 @@ public class AudioManager : MonoBehaviour
         if (soundOnIcon != null)  soundOnIcon.SetActive(isMuted);
         if (soundOffIcon != null) soundOffIcon.SetActive(!isMuted);
     }
+
+    public void MainBGM()
+    {
+        if (bgm == null || bgmLevel == null) return;
+        if (bgm.isPlaying) return;
+
+        bgm.clip = bgmLevel;
+        bgm.loop = true;
+        bgm.Play();
+    }
+
+    public void StopBGM()
+    {
+        if (bgm != null) bgm.Stop();
+    }
+    public void PlaySFX(AudioClip clip)
+{
+    if (bgm == null || clip == null) return;
+    bgm.PlayOneShot(clip);
+}
 }

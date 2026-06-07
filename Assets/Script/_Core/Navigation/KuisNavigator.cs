@@ -41,6 +41,11 @@ public class QuizManager : MonoBehaviour
     public Sprite spriteBenar;
     public Sprite spriteSalah;
 
+
+
+    [Header("Audio")]
+    public AudioManager audioManager;
+
     private int currentLevel = 0;
     private QuizData currentQuiz;
     private bool sudahMenjawab = false;
@@ -129,6 +134,15 @@ public class QuizManager : MonoBehaviour
             tombol.interactable = false;
 
         bool isBenar = (indexDipilih == currentQuiz.indexJawabanBenar);
+
+// Tambah ini:
+if (audioManager != null)
+{
+    if (isBenar)
+        audioManager.PlaySFX(audioManager.sfxBenar);
+    else
+        audioManager.PlaySFX(audioManager.sfxSalah);
+}
 
        SetSpriteTombol(indexDipilih, isBenar ? spriteBenar : spriteSalah);
 
