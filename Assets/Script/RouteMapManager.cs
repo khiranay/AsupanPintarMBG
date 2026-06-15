@@ -7,6 +7,9 @@ public class RouteMapManager : MonoBehaviour
 
     void Start()
     {
+        // Refresh semua LevelButton saat scene dimuat
+        RefreshAllLevelButtons();
+
         if (popupSelesai == null) return;
 
         // Cek flag dari LevelFlowManager
@@ -21,6 +24,16 @@ public class RouteMapManager : MonoBehaviour
         {
             popupSelesai.SetActive(false);
         }
+    }
+
+    void RefreshAllLevelButtons()
+    {
+        LevelButton[] allButtons = FindObjectsOfType<LevelButton>();
+        foreach (var btn in allButtons)
+        {
+            btn.RefreshDisplay();
+        }
+        Debug.Log($"[RouteMapManager] Refreshed {allButtons.Length} LevelButtons");
     }
 
     public void TutupPopupSelesai()

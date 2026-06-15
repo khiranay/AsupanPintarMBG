@@ -50,11 +50,24 @@ public class LevelButton : MonoBehaviour
         star3Locked.SetActive(stars < 3);
     }
 
-    bool IsLevelUnlocked()
+    public bool IsLevelUnlocked()
     {
         if (levelIndex == 1) return true; // Level 1 selalu terbuka
+
         // Level N terbuka jika level sebelumnya punya minimal 1 bintang
-        return LevelProgressManager.GetStars(levelIndex - 1) >= 1;
+        int prevStars = LevelProgressManager.GetStars(levelIndex - 1);
+        bool unlocked = prevStars >= 1;
+
+        Debug.Log($"[LevelButton] Level {levelIndex} - PrevLevel {levelIndex - 1} stars: {prevStars} → Unlocked: {unlocked}");
+        return unlocked;
+    }
+
+    /// <summary>
+    /// Refresh tampilan (panggil dari RouteMapManager saat scene start)
+    /// </summary>
+    public void RefreshDisplay()
+    {
+        UpdateDisplay();
     }
 
     // Assign ke tombol OnClick
