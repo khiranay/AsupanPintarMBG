@@ -2480,9 +2480,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MateriNavigator, Assembly-CSharp
-        m_MethodName: OnBackPressed
+      - m_Target: {fileID: 1650332831}
+        m_TargetAssemblyTypeName: PopupScoreButtons, Assembly-CSharp
+        m_MethodName: OnNext
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6327,7 +6327,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Cara Bermain : \n"
+  m_text: "Cara Bermain : \n1. Lihat kata yang harus dicari.\n2. Cari kata secara
+    mendatar (\u2192).\n3. Pilih huruf yang membentuk kata.\n4. Temukan semua kata
+    sebelum waktu habis.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -6564,9 +6566,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1366906287}
-        m_TargetAssemblyTypeName: WhackAMoleManager, Assembly-CSharp
-        m_MethodName: OnTombolUlang
+      - m_Target: {fileID: 1650332831}
+        m_TargetAssemblyTypeName: PopupScoreButtons, Assembly-CSharp
+        m_MethodName: OnUlangi
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7027,7 +7029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4715a55742aac2c419821e82347c70c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestLevel
-  testLevel: 6
 --- !u!1 &619370721
 GameObject:
   m_ObjectHideFlags: 0
@@ -7462,7 +7463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &685914289
 Transform:
   m_ObjectHideFlags: 0
@@ -10815,7 +10816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &993034420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12981,9 +12982,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HomeButton, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1650332831}
+        m_TargetAssemblyTypeName: PopupScoreButtons, Assembly-CSharp
+        m_MethodName: OnHome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13382,7 +13383,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Cara Bermain : \n"
+  m_text: "Cara Bermain : \n1. Lihat makanan yang muncul di meja.\n2. Pilih makanan
+    yang masih layak dimakan.\n3. Buang makanan basi ke tempat sampah.\n4. Kumpulkan
+    poin sebanyak-banyaknya sebelum waktu habis."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -21298,7 +21301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2141714595
 Transform:
   m_ObjectHideFlags: 0

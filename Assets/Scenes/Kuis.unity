@@ -2777,7 +2777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KuisNavigator
   semuaKuis:
-  - levelId: 0
+  - levelId: 1
     pertanyaan: Jika nasi tercium bau asam, apa yang harus kamu lakukan?
     pilihanJawaban:
     - Dimakan saja
@@ -2798,7 +2798,7 @@ MonoBehaviour:
       Jadi harus dibuang ya!'
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
-  - levelId: 1
+  - levelId: 2
     pertanyaan: Apa yang membuat makanan cepat basi?
     pilihanJawaban:
     - Penyimpanannya benar
@@ -2813,7 +2813,7 @@ MonoBehaviour:
       tertutup rapat membuat makanan lebih awet.'
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
-  - levelId: 2
+  - levelId: 3
     pertanyaan: Apa yang harus kamu lakukan jika melihat jamur kecil di makanan?
     pilihanJawaban:
     - Mencucinya dengan air sampai bersih
@@ -2834,7 +2834,7 @@ MonoBehaviour:
       Jadi roti harus dibuang semua ya!'
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
-  - levelId: 3
+  - levelId: 4
     pertanyaan: ' Kemasan susu yang kembung artinya...?'
     pilihanJawaban:
     - Isinya makin banyak dari biasanya
@@ -2855,7 +2855,7 @@ MonoBehaviour:
       Jadi jangan dipakai ya!'
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
-  - levelId: 4
+  - levelId: 5
     pertanyaan: Bagaimana ciri makanan yang terlihat meragukan?
     pilihanJawaban:
     - Bersih dan terlihat enak
@@ -2868,7 +2868,7 @@ MonoBehaviour:
       tidak perlu lagi diragukan dan sudah aman untuk dimakan.
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
-  - levelId: 5
+  - levelId: 6
     pertanyaan: Bolehkan kita meminum minuman yang kemasannya terbuka?
     pilihanJawaban:
     - Tidak boleh, karena bisa terkontaminasi oleh bakteri
@@ -2889,7 +2889,7 @@ MonoBehaviour:
       sangat berbahaya \nwalaupun dikocok atau dicampur.\nJadi harus dibuang!"
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
-  - levelId: 6
+  - levelId: 7
     pertanyaan: Apa yang terjadi jika kamu mengkonsumsi makanan basi?
     pilihanJawaban:
     - Mual, Muntah, Diare, dan Sakit
