@@ -2869,7 +2869,7 @@ MonoBehaviour:
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 6
-    pertanyaan: Bolehkan kita meminum minuman yang kemasannya terbuka?
+    pertanyaan: Bolehkah kita meminum minuman yang kemasannya terbuka?
     pilihanJawaban:
     - Tidak boleh, karena bisa terkontaminasi oleh bakteri
     - Boleh, Jika minumnya dengan sedotan
