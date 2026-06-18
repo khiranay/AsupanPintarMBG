@@ -6246,7 +6246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &198779608
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13244,7 +13244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &416321987
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26528,7 +26528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &787893699
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42146,7 +42146,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6558896018727255265, guid: 59dc9a2eadd4baa4eab79ad450fbaec7, type: 3}
+  m_Sprite: {fileID: -2799025756769327729, guid: afca3e4d420f91c43bbafe528ef850dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -46872,7 +46872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1413107431
 RectTransform:
   m_ObjectHideFlags: 0
