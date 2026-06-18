@@ -3,45 +3,57 @@ using UnityEngine.UI;
 
 public class RouteMapManager : MonoBehaviour
 {
-    [Header("Popup Selesai Semua Level")]
-    public GameObject popupSelesai; // assign popup di Inspector
+    [Header("Popup Reward Semua Level")]
+    public GameObject popupRewardAllLevels;
 
     [Header("Force Top Canvas (PATCH)")]
-    [Tooltip("Canvas utama RouteMap. Akan dipaksa ke sortingOrder tinggi " +
-             "agar tidak terhalang Canvas scene lain yang persisten.")]
     public Canvas routeMapCanvas;
 
     void Start()
     {
-        // PATCH: Paksa canvas ini ke sorting order tinggi
         ForceCanvasToTop();
-
-        // Refresh semua LevelButton saat scene dimuat
         RefreshAllLevelButtons();
+        HandlePopups();
+    }
 
-        if (popupSelesai == null) return;
-
-        // Cek flag dari LevelFlowManager
-        if (PlayerPrefs.GetInt("ShowSelesaiPopup", 0) == 1)
+    void HandlePopups()
+    {
+        // ← TAMBAHAN: Validasi ulang semua level
+        if (LevelProgressManager.AreAllLevelsCompleted() && 
+            !LevelProgressManager.IsAllLevelsCompletedFlagSet())
         {
-            popupSelesai.SetActive(true);
-            // Hapus flag agar tidak muncul lagi saat balik ke RouteMap berikutnya
-            PlayerPrefs.SetInt("ShowSelesaiPopup", 0);
-            PlayerPrefs.Save();
+            LevelProgressManager.SetAllLevelsCompleted();
+            Debug.Log("[RouteMapManager] Flag reward diset ulang karena semua level sudah selesai!");
         }
-        else
+
+        if (LevelProgressManager.IsAllLevelsCompletedFlagSet())
         {
-            popupSelesai.SetActive(false);
+            ShowPopupReward();
+            return;
+        }
+
+        if (popupRewardAllLevels != null)
+        {
+            popupRewardAllLevels.SetActive(false);
         }
     }
 
-    /// <summary>
-    /// PATCH: Cari Canvas di scene ini dan naikkan sorting order-nya
-    /// agar di atas Canvas persisten (mis. SceneLoader overlay).
-    /// </summary>
+    void ShowPopupReward()
+    {
+        if (popupRewardAllLevels != null)
+        {
+            popupRewardAllLevels.SetActive(true);
+            Debug.Log("[RouteMapManager] Menampilkan popup reward semua level!");
+            LevelProgressManager.ClearAllLevelsCompletedFlag();
+        }
+        else
+        {
+            Debug.LogWarning("[RouteMapManager] popupRewardAllLevels belum di-assign!");
+        }
+    }
+
     void ForceCanvasToTop()
     {
-        // Jika user assign manual, pakai itu
         if (routeMapCanvas == null)
             routeMapCanvas = GetComponentInChildren<Canvas>(true);
 
@@ -49,19 +61,17 @@ public class RouteMapManager : MonoBehaviour
         {
             routeMapCanvas.overrideSorting = true;
             routeMapCanvas.sortingOrder = 100;
-            Debug.Log($"[RouteMapManager] Canvas '{routeMapCanvas.name}' " +
-                      $"paksa ke sortingOrder = 100");
+            Debug.Log($"[RouteMapManager] Canvas '{routeMapCanvas.name}' paksa ke sortingOrder = 100");
         }
         else
         {
-            Debug.LogWarning("[RouteMapManager] Tidak ada Canvas ditemukan. " +
-                             "Tombol mungkin tertutup Canvas persisten lain.");
+            Debug.LogWarning("[RouteMapManager] Tidak ada Canvas ditemukan.");
         }
     }
 
     void RefreshAllLevelButtons()
     {
-        LevelButton[] allButtons = FindObjectsOfType<LevelButton>();
+        LevelButton[] allButtons = FindObjectsByType<LevelButton>(FindObjectsSortMode.None);
         foreach (var btn in allButtons)
         {
             btn.RefreshDisplay();
@@ -69,9 +79,9 @@ public class RouteMapManager : MonoBehaviour
         Debug.Log($"[RouteMapManager] Refreshed {allButtons.Length} LevelButtons");
     }
 
-    public void TutupPopupSelesai()
+    public void TutupPopupReward()
     {
-        if (popupSelesai != null)
-            popupSelesai.SetActive(false);
+        if (popupRewardAllLevels != null)
+            popupRewardAllLevels.SetActive(false);
     }
 }
