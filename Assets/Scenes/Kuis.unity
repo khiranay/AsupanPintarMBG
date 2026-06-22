@@ -2778,22 +2778,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KuisNavigator
   semuaKuis:
   - levelId: 1
-    pertanyaan: Jika nasi tercium bau asam, apa yang harus kamu lakukan?
+    pertanyaan: Jika nasi tercium aroma menyengat, apa yang harus kamu lakukan?
     pilihanJawaban:
     - Dimakan saja
     - Dibuang dan lapor ke Ibu Guru
     - ' Dikasih ke teman'
     indexJawabanBenar: 1
-    penjelasanBenar: 'Nasi yang bau asam itu sudah basi.
+    penjelasanBenar: 'Nasi yang aromanya menyengat itu sudah basi.
 
-      Kalau dimakan bisa
-      bikin sakit perut.
+      Kalau dimakan
+      bisa bikin sakit perut.
 
       Kamu sudah memilih yang benar!'
-    penjelasanSalah: 'Nasi yang bau asam itu tidak boleh dimakan.
+    penjelasanSalah: 'Nasi yang aromanya menyengat itu tidak boleh dimakan.
 
-      Bisa bikin
-      perut sakit.
+      Bisa
+      bikin perut sakit.
 
       Jadi harus dibuang ya!'
     ikonBenar: {fileID: 0}
@@ -2805,7 +2805,7 @@ MonoBehaviour:
     - Bahan sudah kadaluwarsa
     - Wadahnya bersih dan tertutup
     indexJawabanBenar: 1
-    penjelasanBenar: "Bahan yang sudah kadaluwarsa sudah banyak \nkuman sehingga
+    penjelasanBenar: "Bahan yang kadaluwarsa sudah banyak \nterpapar bakteri sehingga
       makanan cepat busuk."
     penjelasanSalah: 'Makanan yang disimpan dengan benar dan
 
@@ -2814,13 +2814,13 @@ MonoBehaviour:
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 3
-    pertanyaan: Apa yang harus kamu lakukan jika melihat jamur kecil di makanan?
+    pertanyaan: Apa yang harus kamu lakukan jika melihat makanan berjamur?
     pilihanJawaban:
     - Mencucinya dengan air sampai bersih
     - Membuang seluruh makanan ke tempat sampah
     - Memberikannya ke hewan peliharaan
     indexJawabanBenar: 1
-    penjelasanBenar: 'Makanan yang ada jamurnya harus dibuang semua.
+    penjelasanBenar: 'Makanan yang sudah berjamur harus dibuang semua.
 
       Jamur
       bisa menyebar walaupun tidak terlihat.
@@ -2835,24 +2835,24 @@ MonoBehaviour:
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 4
-    pertanyaan: ' Kemasan susu yang kembung artinya...?'
+    pertanyaan: Kemasan susu yang menggembung artinya...?
     pilihanJawaban:
     - Isinya makin banyak dari biasanya
     - Susunya segar dan masih baik
-    - Ada gas dari kuman di dalamnya
+    - Ada gas dari bakteri di dalamnya
     indexJawabanBenar: 2
-    penjelasanBenar: 'Kemasan yang kembung artinya ada kuman di dalamnya.
+    penjelasanBenar: 'Kemasan yang menggembung artinya ada bakteri di dalamnya.
 
       Itu
       tanda makanannya sudah rusak.
 
-      Jangan diminum ya!'
-    penjelasanSalah: 'Kemasan kembung bukan berarti bagus.
+      Jangan dikonsumsi ya!'
+    penjelasanSalah: 'Kemasan menggembung bukan berarti bagus.
 
-      Itu tanda ada kuman
-      di dalamnya.
+      Itu tanda ada
+      bakteri di dalamnya.
 
-      Jadi jangan dipakai ya!'
+      Jadi jangan dikonsumsi ya!'
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   - levelId: 5
@@ -2881,7 +2881,7 @@ MonoBehaviour:
       dikonsumsi karena sudah terkontaminasi dengan bakteri
 
       Kalau diminum
-      bisa bikin sakit.
+      bisa bikin sakit perut.
 
       Jadi tidak boleh diminum ya!'
     penjelasanSalah: "Kemasan minuman walaupun diminum dengan sedotan atau\nmerknya
@@ -2896,7 +2896,7 @@ MonoBehaviour:
     - Sehat dan Bugar
     - Senang dan Bertenaga
     indexJawabanBenar: 0
-    penjelasanBenar: 'Kalau perut mual, harus langsung lapor orang dewasa.
+    penjelasanBenar: 'Kalau perut mual, harus langsung lapor guru ya.
 
       Biar
       cepat ditolong.
@@ -2907,7 +2907,7 @@ MonoBehaviour:
       Kalau dibiarkan
       bisa makin sakit.
 
-      Segera bilang ke guru atau orang tua!'
+      Segera bilang ke guru!'
     ikonBenar: {fileID: 0}
     ikonSalah: {fileID: 0}
   panelSoal: {fileID: 457811880}

@@ -6749,7 +6749,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ambil makanan yang segar!
+  m_text: Ambil makanan yang aman!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -7839,7 +7839,7 @@ MonoBehaviour:
     1. Gerakkan ularmu menggunakan tombol panah di sebelah
     kanan!
 
-    2. Makan makanan yang sehat dan segar untuk mendapat poin!
+    2. Makan makanan yang sehat dan aman untuk mendapat poin!
 
     3.
     Hati-hati, jangan makan makanan basi karena skormu bisa berkurang!'
@@ -10202,7 +10202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &941765715
 Transform:
   m_ObjectHideFlags: 0
@@ -21301,7 +21301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2141714595
 Transform:
   m_ObjectHideFlags: 0
