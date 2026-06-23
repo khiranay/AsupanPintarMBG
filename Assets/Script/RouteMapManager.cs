@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RouteMapManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class RouteMapManager : MonoBehaviour
 
     [Header("Force Top Canvas (PATCH)")]
     public Canvas routeMapCanvas;
+    [Header("Tombol Back")]
+[Tooltip("Nama scene yang akan dituju saat tombol back ditekan, misalnya MainMenu")]
+public string namaSceneTujuan = "Home";
 
     void Start()
     {
@@ -84,4 +88,15 @@ public class RouteMapManager : MonoBehaviour
         if (popupRewardAllLevels != null)
             popupRewardAllLevels.SetActive(false);
     }
+public void TombolBack()
+{
+    if (string.IsNullOrEmpty(namaSceneTujuan))
+    {
+        Debug.LogWarning("[RouteMapManager] Nama scene tujuan belum diisi!");
+        return;
+    }
+
+    Debug.Log($"[RouteMapManager] Tombol back ditekan, pindah ke scene '{namaSceneTujuan}'");
+    SceneManager.LoadScene(namaSceneTujuan);
+}
 }
